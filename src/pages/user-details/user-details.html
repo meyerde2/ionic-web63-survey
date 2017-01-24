@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{username}}'s details</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label>Username</ion-label>
+            <ion-badge item-right>{{surveyUser?.username}}</ion-badge>
+        </ion-item>
+        <ion-item>
+            <ion-label>Vorname</ion-label>
+            <ion-badge item-right>{{surveyUser?.firstname}}</ion-badge>
+        </ion-item>
+        <ion-item>
+            <ion-label>Nachname</ion-label>
+            <ion-badge item-right>{{surveyUser?.lastname}}</ion-badge>
+        </ion-item>
+        <ion-item>
+            <ion-label>Rolle</ion-label>
+            <ion-badge item-right>{{surveyUser?.role}}</ion-badge>
+        </ion-item>
+    </ion-list>
+</ion-content>

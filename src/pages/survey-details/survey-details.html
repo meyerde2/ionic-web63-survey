@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title></ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <form [formGroup]="surveyForm" (ngSubmit)="updateSurvey(surveyForm.value)">
+            
+            <h2>Umfrage-ID: {{ s?.surveyId }}</h2>
+            <div class="item item-divider">
+                Bearbeiten
+            </div>
+
+            <ion-item>
+                <ion-label color="primary" stacked>surveyId</ion-label>
+                <ion-input type="text" name="surveyId" placeholder="" [formControl]="surveyForm.controls['surveyId']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Umfragenbezeichnung</ion-label>
+                <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>userId</ion-label>
+                <ion-input type="text" name="userId" placeholder="" [formControl]="surveyForm.controls['userId']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>sessionId</ion-label>
+                <ion-toggle  name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']"></ion-toggle>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>ipAddress</ion-label>
+                <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" ></ion-toggle>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>published</ion-label>
+                <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']"></ion-toggle>
+            </ion-item>
+
+                <button ion-button type="submit" block>aktualisieren</button>
+        </form>
+
+
+</ion-list>
+
+</ion-content>
