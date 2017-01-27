@@ -1,17 +1,17 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Benutzerinformationen</ion-title>
+        <ion-title>Neuer Benutzer</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
     <ion-list>
 
-        <form [formGroup]="userForm" (ngSubmit)="updateUser(userForm.value)">
-              
+        <form [formGroup]="userForm" (ngSubmit)="createUser(userForm.value)">
+
             <ion-item>
                 <ion-label color="primary" stacked>Benutzername</ion-label>
-                <ion-input type="text" name="username" placeholder="" [formControl]="userForm.controls['username']" readonly required></ion-input>
+                <ion-input type="text" name="username" placeholder="" [formControl]="userForm.controls['username']" required></ion-input>
             </ion-item>
 
             <ion-item>
@@ -23,19 +23,19 @@
                 <ion-label color="primary" stacked>Nachname</ion-label>
                 <ion-input type="text" name="lastname" placeholder="" [formControl]="userForm.controls['lastname']" required></ion-input>
             </ion-item>
-          
+
             <ion-item>
                 <ion-label color="primary" stacked>Neues Passwort</ion-label>
-                <ion-input type="password" name="password" placeholder="" [formControl]="userForm.controls['password']" ></ion-input>
+                <ion-input type="password" name="password" placeholder="" [formControl]="userForm.controls['password']" required></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label color="primary" stacked>Neues Passwort bestätigen</ion-label>
-                <ion-input type="password" name="confirmedPassword" placeholder="" [formControl]="userForm.controls['confirmedPassword']" ></ion-input>
+                <ion-input type="password" name="confirmedPassword" placeholder="" [formControl]="userForm.controls['confirmedPassword']" required></ion-input>
             </ion-item>
-            
 
-            <button ion-button type="submit" block>aktualisieren</button>
+
+            <button ion-button type="submit" block>erstellen</button>
         </form>
 
     </ion-list>

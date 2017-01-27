@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Geschlossene Frage</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+
+        <form [formGroup]="closedQuestionForm" (ngSubmit)="openQuestion(closedQuestionForm.value)">
+
+            <ion-item>
+                <ion-label color="primary" stacked>Titel des Elements</ion-label>
+                <ion-input type="text" name="elementTitle" placeholder="" [formControl]="closedQuestionForm.controls['elementTitle']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
+                <ion-input type="text" name="situation" placeholder="" [formControl]="closedQuestionForm.controls['situation']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Fragetext</ion-label>
+                <ion-input type="text" name="questiontext" placeholder="" [formControl]="closedQuestionForm.controls['questiontext']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 1</ion-label>
+                <ion-input type="text" name="answer1" placeholder="" [formControl]="closedQuestionForm.controls['answer1']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 2</ion-label>
+                <ion-input type="text" name="answer2" placeholder="" [formControl]="closedQuestionForm.controls['answer2']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 3</ion-label>
+                <ion-input type="text" name="answer3" placeholder="" [formControl]="closedQuestionForm.controls['answer3']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 4</ion-label>
+                <ion-input type="text" name="answer4" placeholder="" [formControl]="closedQuestionForm.controls['answer4']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 5</ion-label>
+                <ion-input type="text" name="answer5" placeholder="" [formControl]="closedQuestionForm.controls['answer5']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 6</ion-label>
+                <ion-input type="text" name="answer6" placeholder="" [formControl]="closedQuestionForm.controls['answer6']" required></ion-input>
+            </ion-item>
+
+
+
+
+            <button ion-button type="submit" block>erstellen</button>
+        </form>
+
+    </ion-list>
+</ion-content>

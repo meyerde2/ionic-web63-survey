@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Surveys } from '../../providers/surveys';
 import { SurveyEntry } from '../../models/surveyEntry';
+import { SurveyElement } from '../../models/surveyElement';
+
+
 
 
 @Component({
@@ -16,6 +19,8 @@ export class SurveyDetailsPage {
 
     public s: SurveyEntry;
 
+    surveyElements: SurveyElement[];
+
     surveyId = 0;
 
     public title : string;
@@ -27,6 +32,10 @@ export class SurveyDetailsPage {
         surveysProvider.loadDetails(this.surveyId).subscribe(data => {
             this.s = data;
         });
+
+        surveysProvider.loadSurveyElementsBySurveyID(this.surveyId).subscribe(surveyElements => {
+            this.surveyElements = surveyElements;
+        })
     }
 
   ionViewDidLoad() {
@@ -37,7 +46,6 @@ export class SurveyDetailsPage {
 
       console.log('JO: ' + JSON.stringify(this.s));
       this.surveyForm = this.fb.group({
-          // We can set default values by passing in the corresponding value or leave blank if we wish to not set the value. For our example, we’ll default the gender to female.
           'surveyId': '',
           'surveyTitle': '',
           'userId': '',
@@ -66,18 +74,15 @@ export class SurveyDetailsPage {
       console.log("this function will be called every time you enter the view");
   }
 
-
-  todo = {}
-
-  survey = {}
-
   updateSurvey(value: any) {
       console.log('hello world');
       console.log(JSON.stringify(value));
-  }
 
-  logForm() {
-      console.log(this.todo)
+      this.surveysProvider.updateSurveyEntry(value);
+
+      //this.surveysProvider.putSurvey();
+
+    
   }
 
 }

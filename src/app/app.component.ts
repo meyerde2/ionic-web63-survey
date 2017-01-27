@@ -5,8 +5,6 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 import { UsersPage } from '../pages/users/users';
-import { ReposPage } from '../pages/repos/repos';
-import { OrganisationsPage } from '../pages/organisations/organisations';
 import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
 
 @Component({
@@ -16,7 +14,7 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     // make UsersPage the root (or first) page
-    rootPage: any = UsersPage;
+    rootPage: any = SurveyOverviewPage;
     pages: Array<{ title: string, component: any }>;
 
     constructor(public platform: Platform, public menu: MenuController) {
@@ -24,10 +22,8 @@ export class MyApp {
 
         // set our app's pages
         this.pages = [
-            { title: 'Users', component: UsersPage },
-            { title: 'Repos', component: ReposPage },
-            { title: 'Organisations', component: OrganisationsPage },
-            { title: 'Umfrageübersicht', component: SurveyOverviewPage }
+            { title: 'Umfrage\u00fcbersicht', component: SurveyOverviewPage },
+            { title: 'Benutzerverwaltung', component: UsersPage }
             
         ];
     }

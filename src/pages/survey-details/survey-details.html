@@ -1,45 +1,52 @@
-<ion-header>
+﻿<ion-header>
     <ion-navbar>
         <ion-title></ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
+    <h2>Umfrage-ID: {{ s?.surveyId }}</h2>
+
+    <h3>Umfragedetails</h3>
     <ion-list>
         <form [formGroup]="surveyForm" (ngSubmit)="updateSurvey(surveyForm.value)">
-            
-            <h2>Umfrage-ID: {{ s?.surveyId }}</h2>
-            <div class="item item-divider">
-                Bearbeiten
-            </div>
 
             <ion-item>
-                <ion-label color="primary" stacked>surveyId</ion-label>
+                <p>Umfragelink</p>
+                <div>
+                    <h5><a href="http://localhost:4567/survey/execution/{{s?.surveyId}}" target="_blank">http://localhost:4567/survey/execution/{{s?.surveyId}}</a></h5>
+                </div>
+                
+            </ion-item>
+
+
+            <ion-item [hidden]="true">
+                <ion-label>surveyId</ion-label>
                 <ion-input type="text" name="surveyId" placeholder="" [formControl]="surveyForm.controls['surveyId']" required></ion-input>
             </ion-item>
 
             <ion-item>
-                <ion-label color="primary" stacked>Umfragenbezeichnung</ion-label>
+                <ion-label floating>Umfragenbezeichnung</ion-label>
                 <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required></ion-input>
             </ion-item>
 
-            <ion-item>
-                <ion-label color="primary" stacked>userId</ion-label>
-                <ion-input type="text" name="userId" placeholder="" [formControl]="surveyForm.controls['userId']" required></ion-input>
+            <ion-item [hidden]="true">
+                <ion-label stacked>userId</ion-label>
+                <ion-input  type="text" name="userId" placeholder="" [formControl]="surveyForm.controls['userId']" required></ion-input>
             </ion-item>
 
             <ion-item>
-                <ion-label>sessionId</ion-label>
+                <ion-label>Beschränkung per Session-ID</ion-label>
                 <ion-toggle  name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']"></ion-toggle>
             </ion-item>
 
             <ion-item>
-                <ion-label>ipAddress</ion-label>
+                <ion-label>Beschränkung per IP-Adresse</ion-label>
                 <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" ></ion-toggle>
             </ion-item>
 
             <ion-item>
-                <ion-label>published</ion-label>
+                <ion-label>Veröffentlichen</ion-label>
                 <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']"></ion-toggle>
             </ion-item>
 
@@ -49,4 +56,61 @@
 
 </ion-list>
 
+    <h3>Bestandteile der Umfrage</h3>
+    <ion-list>
+        <ion-item ion-item *ngFor="let element of surveyElements">
+            <h2>{{ element?.elementId }}: {{ element?.elementTitle }}</h2>
+            <h3>
+                <span *ngIf="element?.elementType == 1">
+                    Text
+                </span>
+                <span *ngIf="element?.elementType == 2">
+                    Persönliche Daten
+                </span>
+                <span *ngIf="element?.elementType == 3">
+                    Geschlossene Frage
+                </span>
+                <span *ngIf="element?.elementType == 4">
+                    Offene Frage
+                </span>
+                <span *ngIf="element?.elementType == 5">
+                    Bewertungstabelle
+                </span>
+            </h3>
+            <ion-icon md="md-arrow-forward" item-right></ion-icon>
+        </ion-item>
+    </ion-list>
+
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+         <div class="surveyCreationBar">
+            <button outline ion-row center>
+                <ion-col>
+                    <ion-icon name="text"></ion-icon>
+                </ion-col>
+            </button>
+            <button outline ion-row center>
+                <ion-col>
+                    <ion-icon name="person"></ion-icon>
+                </ion-col>
+            </button>
+            <button outline ion-row center>
+                <ion-col>
+                    <ion-icon name="radio-button-on"></ion-icon>
+                </ion-col>
+            </button>
+            <button outline ion-row center>
+                <ion-col>
+                    <ion-icon name="chatboxes"></ion-icon>
+                </ion-col>
+            </button>
+             <button outline ion-row center>
+                 <ion-col>
+                     <ion-icon name="switch"></ion-icon>
+                 </ion-col>
+             </button>
+        </div>
+    </ion-toolbar>
+</ion-footer>

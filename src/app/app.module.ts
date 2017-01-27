@@ -3,14 +3,12 @@ import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { UsersPage } from '../pages/users/users';
-import { ReposPage } from '../pages/repos/repos';
-import { OrganisationsPage } from '../pages/organisations/organisations';
 import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
 import { SurveyDetailsPage } from '../pages/survey-details/survey-details';
 import { UserDetailsPage } from '../pages/user-details/user-details';
+import { UserCreationPage} from '../pages/user-creation/user-creation';
 
 
-import { GithubUsers } from '../providers/github-users';
 import { SurveyUsers } from '../providers/survey-users';
 import { Surveys } from '../providers/surveys';
 
@@ -19,11 +17,10 @@ import { Surveys } from '../providers/surveys';
     declarations: [
         MyApp,
         UsersPage,
-        ReposPage,
-        OrganisationsPage,
         SurveyOverviewPage,
         SurveyDetailsPage,
-        UserDetailsPage
+        UserDetailsPage,
+        UserCreationPage
     ],
     imports: [
         IonicModule.forRoot(MyApp)
@@ -32,12 +29,11 @@ import { Surveys } from '../providers/surveys';
     entryComponents: [
         MyApp,
         UsersPage,
-        ReposPage,
-        OrganisationsPage,
         SurveyOverviewPage,
         SurveyDetailsPage,
-        UserDetailsPage
+        UserDetailsPage,
+        UserCreationPage
     ],
-    providers: [GithubUsers, SurveyUsers, Surveys]
+    providers: [SurveyUsers, Surveys]
 })
 export class AppModule { }

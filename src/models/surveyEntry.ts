@@ -4,7 +4,7 @@ export interface SurveyEntry {
     surveyId: number;
     surveyTitle: string;
     userId: string;
-    ipAddress: string;
-    sessionId: string;
-    published: string;
+    ipAddress: boolean;
+    sessionId: boolean;
+    published: boolean;
 }

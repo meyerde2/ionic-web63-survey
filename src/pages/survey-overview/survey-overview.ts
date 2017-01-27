@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { NgIf } from 'angular2/common';
+
 import { Surveys } from '../../providers/surveys';
 import { SurveyEntry } from '../../models/surveyEntry';
 
@@ -13,12 +15,13 @@ import { SurveyDetailsPage } from '../survey-details/survey-details';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-survey-overview',
-  templateUrl: 'survey-overview.html'
+    selector: 'page-survey-overview',
+    templateUrl: 'survey-overview.html'
 })
 export class SurveyOverviewPage {
 
     surveys: SurveyEntry[]
+
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private surveysProvider: Surveys) {
 
@@ -28,11 +31,12 @@ export class SurveyOverviewPage {
         })
     }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SurveyOverviewPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad SurveyOverviewPage');
+    }
 
-  goToSurveyDetails(id: number) {
-      this.navCtrl.push(SurveyDetailsPage, { id });
-  }
+    goToSurveyDetails(id: number) {
+        this.navCtrl.push(SurveyDetailsPage, { id });
+    }
+
 }
