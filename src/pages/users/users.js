@@ -9,14 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { GithubUsers } from '../../providers/github-users';
 import { SurveyUsers } from '../../providers/survey-users';
 import { UserDetailsPage } from '../user-details/user-details';
+import { UserCreationPage } from '../user-creation/user-creation';
 export var UsersPage = (function () {
-    function UsersPage(navCtrl, githubUsers, surveyUsersProvider) {
+    function UsersPage(navCtrl, surveyUsersProvider) {
         var _this = this;
         this.navCtrl = navCtrl;
-        this.githubUsers = githubUsers;
         this.surveyUsersProvider = surveyUsersProvider;
         surveyUsersProvider.load().subscribe(function (surveryUsers) {
             _this.surveyUsers = surveryUsers;
@@ -26,12 +25,15 @@ export var UsersPage = (function () {
     UsersPage.prototype.goToUserDetails = function (username) {
         this.navCtrl.push(UserDetailsPage, { username: username });
     };
+    UsersPage.prototype.goToNewUser = function () {
+        this.navCtrl.push(UserCreationPage);
+    };
     UsersPage = __decorate([
         Component({
             selector: 'page-users',
             templateUrl: 'users.html'
         }), 
-        __metadata('design:paramtypes', [NavController, GithubUsers, SurveyUsers])
+        __metadata('design:paramtypes', [NavController, SurveyUsers])
     ], UsersPage);
     return UsersPage;
 }());

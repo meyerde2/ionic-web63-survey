@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-/*
-  Generated class for the Evaluation page.
+import { PersonalData } from '../../models/survey-elements/personalData';
+import { Surveys } from '../../providers/surveys';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-evaluation',
   templateUrl: 'evaluation.html'
 })
 export class EvaluationPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EvaluationPage');

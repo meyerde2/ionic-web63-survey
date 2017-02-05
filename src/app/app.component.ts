@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-
 import { Platform, MenuController, Nav } from 'ionic-angular';
-
 import { StatusBar } from 'ionic-native';
 
 import { UsersPage } from '../pages/users/users';
 import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
+import { EvaluationPage } from '../pages/evaluation/evaluation';
+
+import { LoginPage } from '../pages/login/login';
+
 
 @Component({
     templateUrl: 'app.html'
@@ -24,7 +26,7 @@ export class MyApp {
         this.pages = [
             { title: 'Umfrage\u00fcbersicht', component: SurveyOverviewPage },
             { title: 'Benutzerverwaltung', component: UsersPage }
-            
+           
         ];
     }
 

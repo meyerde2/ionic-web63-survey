@@ -1,18 +1,59 @@
-<!--
-  Generated template for the SurveyPersonalData page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>survey-personal-data</ion-title>
-  </ion-navbar>
-
+﻿<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Persönliche Daten</ion-title>
+    </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
+    <ion-list>
+        
+        <form [formGroup]="personalDataForm" (ngSubmit)="submitPersonalDataElement(personalDataForm.value)">
+            <ion-item [hidden]="true">
+                <ion-input type="text" name="surveyId" placeholder="" [formControl]="personalDataForm.controls['surveyId']"></ion-input>
+            </ion-item>
 
+            <ion-item [hidden]="true">
+                <ion-input type="text" name="elementId" placeholder="" [formControl]="personalDataForm.controls['elementId']"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Titel des Elements</ion-label>
+                <ion-input type="text" name="elementTitle" placeholder="" [formControl]="personalDataForm.controls['elementTitle']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Vorname</ion-label>
+                <ion-toggle name="firstname" checked="{{ personalDataElement?.firstname }}" [formControl]="personalDataForm.controls['firstname']"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Nachname</ion-label>
+                <ion-toggle name="firstname" checked="{{ personalDataElement?.lastname }}" [formControl]="personalDataForm.controls['lastname']"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Alter</ion-label>
+                <ion-toggle name="firstname" checked="{{ personalDataElement?.age }}" [formControl]="personalDataForm.controls['age']"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Geschlecht</ion-label>
+                <ion-toggle name="firstname" checked="{{ personalDataElement?.gender }}" [formControl]="personalDataForm.controls['gender']"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Wohnort</ion-label>
+                <ion-toggle name="firstname" checked="{{ personalDataElement?.location }}" [formControl]="personalDataForm.controls['location']"></ion-toggle>
+            </ion-item>
+
+            <div *ngIf="elementId > 0">
+                <button ion-button type="submit" block>aktualisieren</button>
+            </div>
+            <div *ngIf="elementId == 0">
+                <button ion-button type="submit" block>erstellen</button>
+            </div>
+        </form>
+
+    </ion-list>
 </ion-content>

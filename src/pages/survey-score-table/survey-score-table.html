@@ -1,18 +1,76 @@
-<!--
-  Generated template for the SurveyScoreTable page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>survey-score-table</ion-title>
-  </ion-navbar>
-
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Bewertungstabelle</ion-title>
+    </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+    <ion-list>
 
+        <form [formGroup]="scoreTableForm" (ngSubmit)="submitScoreTableElement(scoreTableForm.value)">
+            <ion-item [hidden]="true">
+                <ion-input type="text" name="surveyId" placeholder="" [formControl]="scoreTableForm.controls['surveyId']"></ion-input>
+            </ion-item>
+
+            <ion-item [hidden]="true">
+                <ion-input type="text" name="elementId" placeholder="" [formControl]="scoreTableForm.controls['elementId']"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Titel des Elements</ion-label>
+                <ion-input type="text" name="elementTitle" placeholder="" [formControl]="scoreTableForm.controls['elementTitle']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
+                <ion-input type="text" name="situation" placeholder="" [formControl]="scoreTableForm.controls['situation']"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Fragetext</ion-label>
+                <ion-input type="text" name="questiontext" placeholder="" [formControl]="scoreTableForm.controls['questiontext']" required></ion-input>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 1</ion-label>
+                <ion-input type="text" name="criterion1" placeholder="" [formControl]="scoreTableForm.controls['criterion1']" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 2</ion-label>
+                <ion-input type="text" name="criterion2" placeholder="" [formControl]="scoreTableForm.controls['criterion2']" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 3</ion-label>
+                <ion-input type="text" name="criterion3" placeholder="" [formControl]="scoreTableForm.controls['criterion3']" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 4</ion-label>
+                <ion-input type="text" name="criterion4" placeholder="" [formControl]="scoreTableForm.controls['criterion4']" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 5</ion-label>
+                <ion-input type="text" name="criterion5" placeholder="" [formControl]="scoreTableForm.controls['criterion5']" ></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label color="primary" stacked>Antwort 6</ion-label>
+                <ion-input type="text" name="criterion6" placeholder="" [formControl]="scoreTableForm.controls['criterion6']" ></ion-input>
+            </ion-item>
+
+
+            <div *ngIf="elementId > 0">
+                <button ion-button type="submit" block>aktualisieren</button>
+            </div>
+            <div *ngIf="elementId == 0">
+                <button ion-button type="submit" block>erstellen</button>
+            </div>
+        </form>
+
+    </ion-list>
 </ion-content>

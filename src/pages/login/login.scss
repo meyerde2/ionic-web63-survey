@@ -1,3 +1,52 @@
 page-login {
-
+ 
+  .login-content {
+         /*background-image: url('../../assets/img/bg.jpg');*/
+         background-color: #C22727;
+         background-repeat: repeat;
+         background-size: cover;
+ 
+         .headlines{
+             margin-top: 30%;
+         }
+    .headlines h1, .headlines h2{
+        color: white;
+        font-weight: bolder;
+        font-size: 2.3em;
+    }
+ 
+    .login-box {
+        background-color: #DEDEDE;
+        padding: 20px 20px 0px 20px;
+        margin-top: 25px;
+        border-radius: 30px !important;
+       -moz-border-radius:30px !important;
+       -webkit-border-radius:30px !important;
+    }
+ 
+    ion-row {
+       align-items: center;
+       text-align: center;
+     }
+ 
+   ion-item{
+       margin-top: 10px;
+        border-radius: 30px !important;
+       -moz-border-radius:30px !important;
+       -webkit-border-radius:30px !important;
+       background-color: #000000;
+       color: white;
+   }
+ 
+     .submit-btn {
+       background: #C22727;
+       border-radius: 30px !important;
+       
+     }
+ 
+     .register-btn {
+       font-size: 0.8em;
+     }
+  }
+ 
 }

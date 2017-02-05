@@ -1,0 +1,37 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Account registrieren</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list>
+
+        <form [formGroup]="registrationForm" (ngSubmit)="registerUser(registrationForm.value)">
+
+            <ion-item>
+                <ion-label color="primary" stacked>Benutzername</ion-label>
+                <ion-input type="text" name="username" placeholder="Benutzername" [formControl]="registrationForm.controls['username']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Passwort</ion-label>
+                <ion-input type="text" name="password" placeholder="Passwort" [formControl]="registrationForm.controls['username']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label color="primary" stacked>Passwort bestätigen</ion-label>
+                <ion-input type="text" name="passwordConfirmed" placeholder="Passwort bestätigen" [formControl]="registrationForm.controls['passwordConfirmed']" required></ion-input>
+            </ion-item>
+
+            <button ion-button type="submit" block>Account registrieren</button>
+        </form>
+
+    </ion-list>
+</ion-content>

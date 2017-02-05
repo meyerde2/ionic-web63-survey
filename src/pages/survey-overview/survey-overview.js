@@ -19,17 +19,23 @@ import { SurveyDetailsPage } from '../survey-details/survey-details';
 */
 export var SurveyOverviewPage = (function () {
     function SurveyOverviewPage(navCtrl, navParams, surveysProvider) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.surveysProvider = surveysProvider;
-        surveysProvider.load().subscribe(function (surveys) {
+    }
+    SurveyOverviewPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.surveysProvider.load().subscribe(function (surveys) {
             _this.surveys = surveys;
             console.log(surveys);
         });
-    }
+    };
     SurveyOverviewPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad SurveyOverviewPage');
+    };
+    SurveyOverviewPage.prototype.ionViewWillEnter = function () {
+        console.log('ionViewWillEnter SurveyOverviewPage');
+        this.ngOnInit();
     };
     SurveyOverviewPage.prototype.goToSurveyDetails = function (id) {
         this.navCtrl.push(SurveyDetailsPage, { id: id });

@@ -24,19 +24,26 @@ export class SurveyOverviewPage {
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private surveysProvider: Surveys) {
+    }
 
-        surveysProvider.load().subscribe(surveys => {
+    ngOnInit() {
+        this.surveysProvider.load().subscribe(surveys => {
             this.surveys = surveys;
             console.log(surveys);
         })
     }
-
     ionViewDidLoad() {
         console.log('ionViewDidLoad SurveyOverviewPage');
+    }
+
+    ionViewWillEnter() {
+        console.log('ionViewWillEnter SurveyOverviewPage');
+        this.ngOnInit();
     }
 
     goToSurveyDetails(id: number) {
         this.navCtrl.push(SurveyDetailsPage, { id });
     }
+
 
 }

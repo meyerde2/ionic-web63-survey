@@ -1,5 +1,10 @@
 <ion-header>
     <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Offene Frage</ion-title>
     </ion-navbar>
 </ion-header>
@@ -7,7 +12,16 @@
 <ion-content padding>
     <ion-list>
 
-        <form [formGroup]="openQuestionForm" (ngSubmit)="openQuestion(openQuestionForm.value)">
+        <form [formGroup]="openQuestionForm" (ngSubmit)="submitOpenQuestionElement(openQuestionForm.value)">
+
+            <ion-item [hidden]="true">
+                <ion-input type="text" name="surveyId" placeholder="" [formControl]="openQuestionForm.controls['surveyId']"></ion-input>
+            </ion-item>
+
+            <ion-item [hidden]="true">
+                <ion-input type="text" name="elementId" placeholder="" [formControl]="openQuestionForm.controls['elementId']"></ion-input>
+            </ion-item>
+
 
             <ion-item>
                 <ion-label color="primary" stacked>Titel des Elements</ion-label>
@@ -16,7 +30,7 @@
 
             <ion-item>
                 <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
-                <ion-input type="text" name="situation" placeholder="" [formControl]="openQuestionForm.controls['situation']" required></ion-input>
+                <ion-input type="text" name="situation" placeholder="" [formControl]="openQuestionForm.controls['situation']"></ion-input>
             </ion-item>
 
             <ion-item>
@@ -26,7 +40,12 @@
 
 
 
-            <button ion-button type="submit" block>erstellen</button>
+            <div *ngIf="elementId > 0">
+                <button ion-button type="submit" block>aktualisieren</button>
+            </div>
+            <div *ngIf="elementId == 0">
+                <button ion-button type="submit" block>erstellen</button>
+            </div>
         </form>
 
     </ion-list>

@@ -2,11 +2,5 @@
   "name": "ionic2-app-base",
   "app_id": "",
   "typescript": true,
-  "v2": true,
-  "proxies": [
-    {
-      "path": "/getAllSurveyEntriesnnnnn",
-      "proxyUrl": "http://192.168.178.40:4567/getAllSurveyEntriesnnnn/"
-    }
-  ]
+  "v2": true
 }

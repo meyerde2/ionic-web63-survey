@@ -1,18 +1,40 @@
-<!--
-  Generated template for the Login page.
+<ion-content class="login-content" padding>
+    <div class="headlines">
+        <h1>WEB63</h1>
+        <h2>Survey Mobile</h2>
+    </div>
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+    <div class="login-box">
+        <form (ngSubmit)="login()" #registerForm="ngForm">
+            <ion-row>
+                <ion-col>
+                    <ion-list inset>
 
-  <ion-navbar>
-    <ion-title>login</ion-title>
-  </ion-navbar>
+                        <ion-item>
+                            <ion-input type="text" placeholder="Benutzername" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+                        </ion-item>
 
-</ion-header>
+                        <ion-item>
+                            <ion-input type="password" placeholder="Passwort" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+                        </ion-item>
 
+                        <ion-item>
+                            <ion-input type="text" placeholder="ApplicationServer-URL" name="applicationServer" [(ngModel)]="registerCredentials.applicationServer" required></ion-input>
+                        </ion-item>
 
-<ion-content padding>
+                    </ion-list>
+                </ion-col>
+            </ion-row>
 
+            <ion-row>
+                <ion-col class="signup-col">
+                    <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
+                </ion-col>
+            </ion-row>
+
+        </form>
+        
+        <button ion-button class="register-btn" block clear (click)="presentUserRegistrationForm()">Neuen Account erstellen</button>
+
+    </div>
 </ion-content>

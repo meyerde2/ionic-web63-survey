@@ -1,7 +1,18 @@
 ﻿<ion-header>
     <ion-navbar>
         <ion-title></ion-title>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="openEvaluationPage()">
+                <ion-icon name="create"></ion-icon>
+            </button>
+
+            <button ion-button icon-only (click)="openEvaluationPage()">
+                <ion-icon name="trash"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
+
 </ion-header>
 
 <ion-content padding>
@@ -15,8 +26,7 @@
                 <p>Umfragelink</p>
                 <div>
                     <h5><a href="http://localhost:4567/survey/execution/{{s?.surveyId}}" target="_blank">http://localhost:4567/survey/execution/{{s?.surveyId}}</a></h5>
-                </div>
-                
+                </div> 
             </ion-item>
 
 
@@ -27,7 +37,7 @@
 
             <ion-item>
                 <ion-label floating>Umfragenbezeichnung</ion-label>
-                <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required></ion-input>
+                <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required (change)="surveyChange(surveyForm.value)"></ion-input>
             </ion-item>
 
             <ion-item [hidden]="true">
@@ -37,20 +47,20 @@
 
             <ion-item>
                 <ion-label>Beschränkung per Session-ID</ion-label>
-                <ion-toggle  name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']"></ion-toggle>
+                <ion-toggle  name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
             </ion-item>
 
             <ion-item>
                 <ion-label>Beschränkung per IP-Adresse</ion-label>
-                <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" ></ion-toggle>
+                <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
             </ion-item>
 
             <ion-item>
                 <ion-label>Veröffentlichen</ion-label>
-                <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']"></ion-toggle>
+                <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
             </ion-item>
 
-                <button ion-button type="submit" block>aktualisieren</button>
+            <!--<button ion-button type="submit" block>aktualisieren</button>-->
         </form>
 
 
@@ -58,25 +68,26 @@
 
     <h3>Bestandteile der Umfrage</h3>
     <ion-list>
-        <ion-item ion-item *ngFor="let element of surveyElements">
+        <ion-item ion-item *ngFor="let element of surveyElements" (click)="presentModal(element.surveyId, element.elementId, element.elementType)">
             <h2>{{ element?.elementId }}: {{ element?.elementTitle }}</h2>
-            <h3>
-                <span *ngIf="element?.elementType == 1">
-                    Text
-                </span>
-                <span *ngIf="element?.elementType == 2">
-                    Persönliche Daten
-                </span>
-                <span *ngIf="element?.elementType == 3">
-                    Geschlossene Frage
-                </span>
-                <span *ngIf="element?.elementType == 4">
-                    Offene Frage
-                </span>
-                <span *ngIf="element?.elementType == 5">
-                    Bewertungstabelle
-                </span>
-            </h3>
+           
+            <div *ngIf="element?.elementType == 1">
+                <h3>Text</h3>
+            </div>
+
+            <div *ngIf="element?.elementType == 2">
+                <h3>Persönliche Daten</h3>
+            </div>
+            <div *ngIf="element?.elementType == 3">
+                <h3>Geschlossene Frage</h3>
+            </div>
+            <div *ngIf="element?.elementType == 4">
+                <h3>Offene Frage</h3>
+            </div>
+            <div *ngIf="element?.elementType == 5">
+                <h3>Bewertungstabelle</h3>
+            </div>
+
             <ion-icon md="md-arrow-forward" item-right></ion-icon>
         </ion-item>
     </ion-list>
@@ -84,33 +95,9 @@
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-         <div class="surveyCreationBar">
-            <button outline ion-row center>
-                <ion-col>
-                    <ion-icon name="text"></ion-icon>
-                </ion-col>
-            </button>
-            <button outline ion-row center>
-                <ion-col>
-                    <ion-icon name="person"></ion-icon>
-                </ion-col>
-            </button>
-            <button outline ion-row center>
-                <ion-col>
-                    <ion-icon name="radio-button-on"></ion-icon>
-                </ion-col>
-            </button>
-            <button outline ion-row center>
-                <ion-col>
-                    <ion-icon name="chatboxes"></ion-icon>
-                </ion-col>
-            </button>
-             <button outline ion-row center>
-                 <ion-col>
-                     <ion-icon name="switch"></ion-icon>
-                 </ion-col>
-             </button>
+    <ion-toolbar (click)="presentActionSheet()">
+         <div center text-center class="surveyCreationBar" >
+             <h5 center text-center><ion-icon name="add"></ion-icon> Element hinzufügen</h5>
         </div>
     </ion-toolbar>
 </ion-footer>

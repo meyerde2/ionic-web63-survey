@@ -1,0 +1,1 @@
+//# sourceMappingURL=scoreTable.js.map
