@@ -1,10 +1,33 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>Umfrageauswertung</ion-title>
+    <ion-navbar color="danger">
+        <ion-title>
+            Umfrageauswertung1
+        </ion-title>
     </ion-navbar>
 </ion-header>
 
+<ion-content>
+    hhjjhjhkhjk
+    {{userTestStatus}}
+    <div *ngFor="let chartE of userTestStatus">
+        {{chartE.datasets}}
+        <h1>{{chartE.elementId}}: {{chartE.elementTitle}}</h1>
 
-<ion-content padding>
-    <h1>Hello World. This is the Evaluation Page</h1>
+        <div *ngIf="chartE.type === 'bar'">
+            <canvas baseChart
+                    [datasets]="chartE.datasets"
+                    [labels]="chartE.label"
+                    [options]="options"
+                    [chartType]="chartE.type"></canvas>
+        </div>
+        <div *ngIf="chartE.type != 'bar'">
+            <canvas baseChart
+                    [datasets]="chartE.datasets"
+                    [labels]="chartE.label"
+                    [chartType]="chartE.type"></canvas>
+        </div>
+
+    </div>
+
+
 </ion-content>

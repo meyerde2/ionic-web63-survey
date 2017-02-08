@@ -20,258 +20,265 @@ export class Surveys {
     textElementGlobal: Text;
 
 
-  constructor(public http: Http) {
-    console.log('Hello Survey Provider');
-  }
+    constructor(public http: Http) {
+        console.log('Hello Survey Provider');
+    }
 
 
-  // Load all surveys
-  load(): Observable<SurveyEntry[]> {
-      
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT'
-      });
-    
+    // Load all surveys
+    load(): Observable<SurveyEntry[]> {
 
-      let options = new RequestOptions({ headers: headers });
-
-      return this.http.get(`${this.surveyUrl}/getAllSurveyEntries/`)
-        .map(res => <SurveyEntry[]>res.json());
-  }
-
- 
-  // Load all surveys
-  putSurvey(): Observable<SurveyEntry[]> {
-
-      var username = "myusernameJunge";
-
-      var password = "pw";
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT'
-      });
-
-      let urlSearchParams = new URLSearchParams();
-      urlSearchParams.append('username', username);
-      urlSearchParams.append('hashedPassword', password);
-
-      var data = JSON.stringify({ username: 'CHEFFE' });
-
-      let body = urlSearchParams.toString()
-      console.log("putSurvey!!!!!!!!!!!!");
-
-      return this.http.put(`${this.surveyUrl}/updateSurvey/15/`, body)
-          .map(res => <SurveyEntry[]>res.json());
-              
-
-  }
-
-  updateSurveyEntry(survey: SurveyEntry) {
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT'
+        });
 
 
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+        let options = new RequestOptions({ headers: headers });
 
-      });
-
-      console.log("survey provider: " + JSON.stringify(survey));
-      console.log("URL: " + `${this.surveyUrl}/updateSurvey/${survey.surveyId}/`);
-
-      console.log("survey.surveyId:  " + survey.surveyId);
-
-      if (survey.surveyId != undefined && survey.surveyId > 0) {
-          this.http.put(`${this.surveyUrl}/updateSurvey/${survey.surveyId}/`, JSON.stringify(survey), { headers: headers })
-              .map(res => <SurveyEntry[]>res.json(),
-              error => {
-                  console.error("error updating survey!");
-                  return Observable.throw(error);
-              }).subscribe();
-          console.log("URL: " + `${this.surveyUrl}/updateSurvey/${survey.surveyId}/`);
-      } else {
-          console.log("Update not executed");
-      }
-
-  }
+        return this.http.get(`${this.surveyUrl}/getAllSurveyEntries/`)
+            .map(res => <SurveyEntry[]>res.json());
+    }
 
 
+    // Load all surveys
+    putSurvey(): Observable<SurveyEntry[]> {
 
-  // Get survey by id
-  loadDetails(id: number): Observable<SurveyEntry> {
-      return this.http.get(`${this.surveyUrl}/getSurveyById/${id}/`)
-          .map(res => <SurveyEntry>(res.json()))
-  }
+        var username = "myusernameJunge";
+
+        var password = "pw";
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT'
+        });
+
+        let urlSearchParams = new URLSearchParams();
+        urlSearchParams.append('username', username);
+        urlSearchParams.append('hashedPassword', password);
+
+        var data = JSON.stringify({ username: 'CHEFFE' });
+
+        let body = urlSearchParams.toString()
+        console.log("putSurvey!!!!!!!!!!!!");
+
+        return this.http.put(`${this.surveyUrl}/updateSurvey/15/`, body)
+            .map(res => <SurveyEntry[]>res.json());
 
 
-  // Get survey elements by surveyId
-  loadSurveyElementsBySurveyID(id: number): Observable<SurveyElement[]> {
-      return this.http.get(`${this.surveyUrl}/getSurveyElementsById/${id}/`)
-          .map(res => <SurveyElement[]>(res.json()))
-  }
+    }
+
+    updateSurveyEntry(survey: SurveyEntry) {
+
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        console.log("survey provider: " + JSON.stringify(survey));
+        console.log("URL: " + `${this.surveyUrl}/updateSurvey/${survey.surveyId}/`);
+
+        console.log("survey.surveyId:  " + survey.surveyId);
+
+        if (survey.surveyId != undefined && survey.surveyId > 0) {
+            this.http.put(`${this.surveyUrl}/updateSurvey/${survey.surveyId}/`, JSON.stringify(survey), { headers: headers })
+                .map(res => <SurveyEntry[]>res.json(),
+                error => {
+                    console.error("error updating survey!");
+                    return Observable.throw(error);
+                }).subscribe();
+            console.log("URL: " + `${this.surveyUrl}/updateSurvey/${survey.surveyId}/`);
+        } else {
+            console.log("Update not executed");
+        }
+
+    }
+
+
+
+    // Get survey by id
+    loadDetails(id: number): Observable<SurveyEntry> {
+        return this.http.get(`${this.surveyUrl}/getSurveyById/${id}/`)
+            .map(res => <SurveyEntry>(res.json()))
+    }
+
+
+    // Get survey elements by surveyId
+    loadSurveyElementsBySurveyID(id: number): Observable<SurveyElement[]> {
+        return this.http.get(`${this.surveyUrl}/getSurveyElementsById/${id}/`)
+            .map(res => <SurveyElement[]>(res.json()))
+    }
 
 
     //******************************//
     // get different element data
     //******************************//
 
-  loadTextDetailsById(surveyId : number, elementId: number, elementType: number): Observable<Text> {
+    loadTextDetailsById(surveyId: number, elementId: number, elementType: number): Observable<Text> {
 
-      return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
-          .map(res => <Text>(res.json()))
-  }
-
-
-  loadPersonalDataById(surveyId: number, elementId: number, elementType: number): Observable<PersonalData> {
-
-      return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
-          .map(res => <PersonalData>(res.json()))
-  }
-
-  loadClosedQuestionDetailsById(surveyId: number, elementId: number, elementType: number): Observable<ClosedQuestion>{
-
-      return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
-          .map(res => <ClosedQuestion>(res.json()))
-  }
-
-  loadOpenQuestionDetailsById(surveyId: number, elementId: number, elementType: number): Observable<OpenQuestion> {
-
-      return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
-          .map(res => <OpenQuestion>(res.json()))
-  }
-
-  loadScoreTableDetailsById(surveyId: number, elementId: number, elementType: number): Observable<ScoreTable> {
-
-      return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
-          .map(res => <ScoreTable>(res.json()))
-  }
+        return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
+            .map(res => <Text>(res.json()))
+    }
 
 
-  createTextElement(text: Text) {
+    loadPersonalDataById(surveyId: number, elementId: number, elementType: number): Observable<PersonalData> {
 
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+        return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
+            .map(res => <PersonalData>(res.json()))
+    }
 
-      });
+    loadClosedQuestionDetailsById(surveyId: number, elementId: number, elementType: number): Observable<ClosedQuestion> {
 
-      console.log("before put request");
-      return this.http.put(`${this.surveyUrl}/jsonTextupload/`, JSON.stringify(text), { headers: headers })
-          .map(res => <Text>res.json())
-  }
+        return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
+            .map(res => <ClosedQuestion>(res.json()))
+    }
 
+    loadOpenQuestionDetailsById(surveyId: number, elementId: number, elementType: number): Observable<OpenQuestion> {
 
-  updateTextElement(text: Text) {
+        return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
+            .map(res => <OpenQuestion>(res.json()))
+    }
 
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+    loadScoreTableDetailsById(surveyId: number, elementId: number, elementType: number): Observable<ScoreTable> {
 
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonTextuploadUpdate/`, JSON.stringify(text), { headers: headers })
-          .map(res => <Text>res.json());
-  }
-
-  createPersonalDataElement(personalData: PersonalData) {
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonPersonaldata/`, JSON.stringify(personalData), { headers: headers })
-          .map(res => <Text>res.json())
-  }
-
-  updatePersonalDataElement(personalData: PersonalData) {
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonPersonaldataUpdate/`, JSON.stringify(personalData), { headers: headers })
-          .map(res => <Text>res.json());
-  }
-
-  createClosedQuestionElement(closedQuestion: ClosedQuestion) {
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonClosedQuestion/`, JSON.stringify(closedQuestion), { headers: headers })
-          .map(res => <Text>res.json())
-  }
-
-  updateClosedQuestionElement(closedQuestion: ClosedQuestion) {
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonClosedQuestionUpdate/`, JSON.stringify(closedQuestion), { headers: headers })
-          .map(res => <Text>res.json());
-  }
-
-  createOpenQuestionElement(openQuestion: OpenQuestion) {
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonOpenQuestion/`, JSON.stringify(openQuestion), { headers: headers })
-          .map(res => <Text>res.json())
-  }
-
-  updateOpenQuestionElement(openQuestion: OpenQuestion) {
-
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-
-      });
-
-      return this.http.put(`${this.surveyUrl}/jsonOpenQuestionUpdate/`, JSON.stringify(openQuestion), { headers: headers })
-          .map(res => <Text>res.json());
-  }
+        return this.http.get(`${this.surveyUrl}/survey/${surveyId}/element/${elementId}/elementtype/${elementType}/`)
+            .map(res => <ScoreTable>(res.json()))
+    }
 
 
-  createScoreTableElement(scoreTable: ScoreTable) {
+    createTextElement(text: Text) {
 
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
 
-      });
+        });
 
-      return this.http.put(`${this.surveyUrl}/jsonScoreTable/`, JSON.stringify(scoreTable), { headers: headers })
-          .map(res => <Text>res.json())
-  }
+        console.log("before put request");
+        return this.http.put(`${this.surveyUrl}/jsonTextupload/`, JSON.stringify(text), { headers: headers })
+            .map(res => <Text>res.json())
+    }
 
-  updateScoreTableElement(scoreTable: ScoreTable) {
 
-      let headers = new Headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
+    updateTextElement(text: Text) {
 
-      });
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
 
-      return this.http.put(`${this.surveyUrl}/jsonScoreTableUpdate/`, JSON.stringify(scoreTable), { headers: headers })
-          .map(res => <Text>res.json());
-  }
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonTextuploadUpdate/`, JSON.stringify(text), { headers: headers })
+            .map(res => <Text>res.json());
+    }
+
+    createPersonalDataElement(personalData: PersonalData) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonPersonaldata/`, JSON.stringify(personalData), { headers: headers })
+            .map(res => <Text>res.json())
+    }
+
+    updatePersonalDataElement(personalData: PersonalData) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonPersonaldataUpdate/`, JSON.stringify(personalData), { headers: headers })
+            .map(res => <Text>res.json());
+    }
+
+    createClosedQuestionElement(closedQuestion: ClosedQuestion) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonClosedQuestion/`, JSON.stringify(closedQuestion), { headers: headers })
+            .map(res => <Text>res.json())
+    }
+
+    updateClosedQuestionElement(closedQuestion: ClosedQuestion) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonClosedQuestionUpdate/`, JSON.stringify(closedQuestion), { headers: headers })
+            .map(res => <Text>res.json());
+    }
+
+    createOpenQuestionElement(openQuestion: OpenQuestion) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonOpenQuestion/`, JSON.stringify(openQuestion), { headers: headers })
+            .map(res => <Text>res.json())
+    }
+
+    updateOpenQuestionElement(openQuestion: OpenQuestion) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonOpenQuestionUpdate/`, JSON.stringify(openQuestion), { headers: headers })
+            .map(res => <Text>res.json());
+    }
+
+
+    createScoreTableElement(scoreTable: ScoreTable) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonScoreTable/`, JSON.stringify(scoreTable), { headers: headers })
+            .map(res => <Text>res.json())
+    }
+
+    updateScoreTableElement(scoreTable: ScoreTable) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonScoreTableUpdate/`, JSON.stringify(scoreTable), { headers: headers })
+            .map(res => <Text>res.json());
+    }
+
+
+    // Get survey evaluation by id
+    loadSurveyEvaluation(id: number): Observable<any> {
+        return this.http.get(`${this.surveyUrl}/jsonEvaluation/${id}/`)
+            .map(res => (res.json()))
+    }
 }

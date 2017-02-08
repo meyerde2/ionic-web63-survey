@@ -252,8 +252,8 @@ export class SurveyDetailsPage {
         this.surveysProvider.updateSurveyEntry(value);
     }
 
-    openEvaluationPage() {
-        this.navCtrl.push(EvaluationPage);
+    openEvaluationPage(id: number) {
+        this.navCtrl.push(EvaluationPage, { id });
     }
 
 }

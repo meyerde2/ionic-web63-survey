@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+
 import { UsersPage } from '../pages/users/users';
 import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
 import { SurveyDetailsPage } from '../pages/survey-details/survey-details';
@@ -23,6 +24,8 @@ import { SurveyUsers } from '../providers/survey-users';
 import { Surveys } from '../providers/surveys';
 import { Login } from '../providers/login';
 
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 
 @NgModule({
     declarations: [
@@ -42,7 +45,9 @@ import { Login } from '../providers/login';
         EvaluationPage
     ],
     imports: [
-        IonicModule.forRoot(MyApp)
+        IonicModule.forRoot(MyApp),
+        ChartsModule
+
     ],
     bootstrap: [IonicApp],
     entryComponents: [

@@ -11,77 +11,85 @@
 
 
 <ion-content padding>
-    <ion-list>
 
-        <form [formGroup]="closedQuestionForm" (ngSubmit)="submitClosedQuestionElement(closedQuestionForm.value)">
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
 
-            <ion-item [hidden]="true">
-                <ion-input type="text" name="surveyId" placeholder="" [formControl]="closedQuestionForm.controls['surveyId']"></ion-input>
-            </ion-item>
+                <form [formGroup]="closedQuestionForm" (ngSubmit)="submitClosedQuestionElement(closedQuestionForm.value)">
 
-            <ion-item [hidden]="true">
-                <ion-input type="text" name="elementId" placeholder="" [formControl]="closedQuestionForm.controls['elementId']"></ion-input>
-            </ion-item>
+                    <ion-item [hidden]="true">
+                        <ion-input type="text" name="surveyId" placeholder="" [formControl]="closedQuestionForm.controls['surveyId']"></ion-input>
+                    </ion-item>
+
+                    <ion-item [hidden]="true">
+                        <ion-input type="text" name="elementId" placeholder="" [formControl]="closedQuestionForm.controls['elementId']"></ion-input>
+                    </ion-item>
 
 
-            <ion-item>
-                <ion-label color="primary" stacked>Titel des Elements</ion-label>
-                <ion-input type="text" name="elementTitle" placeholder="" [formControl]="closedQuestionForm.controls['elementTitle']" required></ion-input>
-            </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Titel des Elements</ion-label>
+                        <ion-input type="text" name="elementTitle" placeholder="" [formControl]="closedQuestionForm.controls['elementTitle']" required></ion-input>
+                    </ion-item>
 
-            <ion-item>
-                <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
-                <ion-input type="text" name="situation" placeholder="" [formControl]="closedQuestionForm.controls['situation']" ></ion-input>
-            </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
+                        <ion-input type="text" name="situation" placeholder="" [formControl]="closedQuestionForm.controls['situation']"></ion-input>
+                    </ion-item>
 
-            <ion-item>
-                <ion-label color="primary" stacked>Fragetext</ion-label>
-                <ion-input type="text" name="questiontext" placeholder="" [formControl]="closedQuestionForm.controls['questiontext']" required></ion-input>
-            </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Fragetext</ion-label>
+                        <ion-input type="text" name="questiontext" placeholder="" [formControl]="closedQuestionForm.controls['questiontext']" required></ion-input>
+                    </ion-item>
 
-            
-            <ion-item>
-                <ion-label color="primary" stacked>Antwort 1</ion-label>
-                <ion-input type="text" name="answer1" placeholder="" [formControl]="closedQuestionForm.controls['answer1']" required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label color="primary" stacked>Antwort 2</ion-label>
-                <ion-input type="text" name="answer2" placeholder="" [formControl]="closedQuestionForm.controls['answer2']" required></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label color="primary" stacked>Antwort 3</ion-label>
-                <ion-input type="text" name="answer3" placeholder="" [formControl]="closedQuestionForm.controls['answer3']" ></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label color="primary" stacked>Antwort 4</ion-label>
-                <ion-input type="text" name="answer4" placeholder="" [formControl]="closedQuestionForm.controls['answer4']" ></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label color="primary" stacked>Antwort 5</ion-label>
-                <ion-input type="text" name="answer5" placeholder="" [formControl]="closedQuestionForm.controls['answer5']" ></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label color="primary" stacked>Antwort 6</ion-label>
-                <ion-input type="text" name="answer6" placeholder="" [formControl]="closedQuestionForm.controls['answer6']" ></ion-input>
-            </ion-item>
 
-            <ion-item>
-                <ion-label>Mehrfachauswahl?</ion-label>
-                <ion-toggle name="multipleSelection" checked="{{ s?.multipleSelection }}" [formControl]="closedQuestionForm.controls['multipleSelection']"></ion-toggle>
-            </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Antwort 1</ion-label>
+                        <ion-input type="text" name="answer1" placeholder="" [formControl]="closedQuestionForm.controls['answer1']" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Antwort 2</ion-label>
+                        <ion-input type="text" name="answer2" placeholder="" [formControl]="closedQuestionForm.controls['answer2']" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Antwort 3</ion-label>
+                        <ion-input type="text" name="answer3" placeholder="" [formControl]="closedQuestionForm.controls['answer3']"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Antwort 4</ion-label>
+                        <ion-input type="text" name="answer4" placeholder="" [formControl]="closedQuestionForm.controls['answer4']"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Antwort 5</ion-label>
+                        <ion-input type="text" name="answer5" placeholder="" [formControl]="closedQuestionForm.controls['answer5']"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Antwort 6</ion-label>
+                        <ion-input type="text" name="answer6" placeholder="" [formControl]="closedQuestionForm.controls['answer6']"></ion-input>
+                    </ion-item>
 
-            <ion-item>
-                <ion-label>Optionales Textfeld?</ion-label>
-                <ion-toggle name="optionalTextfield" checked="{{ s?.optionalTextfield }}" [formControl]="closedQuestionForm.controls['optionalTextfield']"></ion-toggle>
-            </ion-item>
+                    <ion-item>
+                        <ion-label>Mehrfachauswahl?</ion-label>
+                        <ion-toggle name="multipleSelection" checked="{{ s?.multipleSelection }}" [formControl]="closedQuestionForm.controls['multipleSelection']"></ion-toggle>
+                    </ion-item>
 
-            <div *ngIf="elementId > 0">
-                <button ion-button type="submit" block>aktualisieren</button>
-            </div>
-            <div *ngIf="elementId == 0">
-                <button ion-button type="submit" block>erstellen</button>
-            </div>
-        </form>
+                    <ion-item>
+                        <ion-label>Optionales Textfeld?</ion-label>
+                        <ion-toggle name="optionalTextfield" checked="{{ s?.optionalTextfield }}" [formControl]="closedQuestionForm.controls['optionalTextfield']"></ion-toggle>
+                    </ion-item>
 
-    </ion-list>
+                    <div *ngIf="elementId > 0">
+                        <button ion-button type="submit" block>aktualisieren</button>
+                    </div>
+                    <div *ngIf="elementId == 0">
+                        <button ion-button type="submit" block>erstellen</button>
+                    </div>
+                </form>
+
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+
+    
 </ion-content>

@@ -10,31 +10,36 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list>
 
-        <ion-item ion-item *ngFor="let survey of surveys" (click)="goToSurveyDetails(survey.surveyId)">
-            <ion-avatar item-left>
-                <ion-icon name="text"></ion-icon>
-            </ion-avatar>
-            <h2>{{ survey.surveyTitle }}</h2>
-            <h3>Umfrage-ID: {{ survey.surveyId}}</h3>
-            <p>
-                <span *ngIf="survey.published">
-                    <ion-badge item-right color="secondary">
-                        Veröffentlicht
-                    </ion-badge>
-                </span>
-                <span *ngIf="!survey.published">
-                    <ion-badge item-right color="danger">
-                        Entwurf
-                    </ion-badge>
-                </span>
-            </p>
-            <ion-icon md="md-arrow-forward" item-right></ion-icon>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <ion-item ion-item *ngFor="let survey of surveys" (click)="goToSurveyDetails(survey.surveyId)">
+                    <ion-avatar item-left>
+                        <ion-icon name="text"></ion-icon>
+                    </ion-avatar>
+                    <h2>{{ survey.surveyTitle }}</h2>
+                    <h3>Umfrage-ID: {{ survey.surveyId}}</h3>
+                    <p>
+                        <span *ngIf="survey.published">
+                            <ion-badge item-right color="secondary">
+                                Veröffentlicht
+                            </ion-badge>
+                        </span>
+                        <span *ngIf="!survey.published">
+                            <ion-badge item-right color="danger">
+                                Entwurf
+                            </ion-badge>
+                        </span>
+                    </p>
+                    <ion-icon md="md-arrow-forward" item-right></ion-icon>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 
-        </ion-item>
 
-    </ion-list>
+    
 
 
 </ion-content>

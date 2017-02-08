@@ -1,10 +1,10 @@
 ﻿<ion-header>
     <ion-navbar>
-        <ion-title></ion-title>
+        <ion-title>Umfragedetails</ion-title>
 
         <ion-buttons end>
-            <button ion-button icon-only (click)="openEvaluationPage()">
-                <ion-icon name="create"></ion-icon>
+            <button ion-button icon-only (click)="openEvaluationPage(s?.surveyId)">
+                <ion-icon name="stats"></ion-icon>
             </button>
 
             <button ion-button icon-only (click)="openEvaluationPage()">
@@ -16,82 +16,95 @@
 </ion-header>
 
 <ion-content padding>
-    <h2>Umfrage-ID: {{ s?.surveyId }}</h2>
 
-    <h3>Umfragedetails</h3>
-    <ion-list>
-        <form [formGroup]="surveyForm" (ngSubmit)="updateSurvey(surveyForm.value)">
+    <ion-card>
+        <ion-card-header>
+            <h1>Umfrage-ID: {{ s?.surveyId }}</h1>
+        </ion-card-header>
+        <ion-card-content>
 
-            <ion-item>
-                <p>Umfragelink</p>
-                <div>
-                    <h5><a href="http://localhost:4567/survey/execution/{{s?.surveyId}}" target="_blank">http://localhost:4567/survey/execution/{{s?.surveyId}}</a></h5>
-                </div> 
-            </ion-item>
+            <ion-list>
+                <form [formGroup]="surveyForm" (ngSubmit)="updateSurvey(surveyForm.value)">
 
-
-            <ion-item [hidden]="true">
-                <ion-label>surveyId</ion-label>
-                <ion-input type="text" name="surveyId" placeholder="" [formControl]="surveyForm.controls['surveyId']" required></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label floating>Umfragenbezeichnung</ion-label>
-                <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required (change)="surveyChange(surveyForm.value)"></ion-input>
-            </ion-item>
-
-            <ion-item [hidden]="true">
-                <ion-label stacked>userId</ion-label>
-                <ion-input  type="text" name="userId" placeholder="" [formControl]="surveyForm.controls['userId']" required></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Beschränkung per Session-ID</ion-label>
-                <ion-toggle  name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Beschränkung per IP-Adresse</ion-label>
-                <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Veröffentlichen</ion-label>
-                <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
-            </ion-item>
-
-            <!--<button ion-button type="submit" block>aktualisieren</button>-->
-        </form>
+                    <ion-item>
+                        <p>Umfragelink</p>
+                        <div>
+                            <h5><a href="http://localhost:4567/survey/execution/{{s?.surveyId}}" target="_blank">http://localhost:4567/survey/execution/{{s?.surveyId}}</a></h5>
+                        </div>
+                    </ion-item>
 
 
-</ion-list>
+                    <ion-item [hidden]="true">
+                        <ion-label>surveyId</ion-label>
+                        <ion-input type="text" name="surveyId" placeholder="" [formControl]="surveyForm.controls['surveyId']" required></ion-input>
+                    </ion-item>
 
-    <h3>Bestandteile der Umfrage</h3>
-    <ion-list>
-        <ion-item ion-item *ngFor="let element of surveyElements" (click)="presentModal(element.surveyId, element.elementId, element.elementType)">
-            <h2>{{ element?.elementId }}: {{ element?.elementTitle }}</h2>
-           
-            <div *ngIf="element?.elementType == 1">
-                <h3>Text</h3>
-            </div>
+                    <ion-item>
+                        <ion-label floating>Umfragenbezeichnung</ion-label>
+                        <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required (change)="surveyChange(surveyForm.value)"></ion-input>
+                    </ion-item>
 
-            <div *ngIf="element?.elementType == 2">
-                <h3>Persönliche Daten</h3>
-            </div>
-            <div *ngIf="element?.elementType == 3">
-                <h3>Geschlossene Frage</h3>
-            </div>
-            <div *ngIf="element?.elementType == 4">
-                <h3>Offene Frage</h3>
-            </div>
-            <div *ngIf="element?.elementType == 5">
-                <h3>Bewertungstabelle</h3>
-            </div>
+                    <ion-item [hidden]="true">
+                        <ion-label stacked>userId</ion-label>
+                        <ion-input type="text" name="userId" placeholder="" [formControl]="surveyForm.controls['userId']" required></ion-input>
+                    </ion-item>
 
-            <ion-icon md="md-arrow-forward" item-right></ion-icon>
-        </ion-item>
-    </ion-list>
+                    <ion-item>
+                        <ion-label>Beschränkung per Session-ID</ion-label>
+                        <ion-toggle name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
+                    </ion-item>
 
+                    <ion-item>
+                        <ion-label>Beschränkung per IP-Adresse</ion-label>
+                        <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-label>Veröffentlichen</ion-label>
+                        <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
+                    </ion-item>
+
+                    <!--<button ion-button type="submit" block>aktualisieren</button>-->
+                </form>
+
+
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+
+
+    <ion-card>
+        <ion-card-header>
+            <h1>Bestandteile der Umfrage</h1>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                <ion-item ion-item *ngFor="let element of surveyElements" (click)="presentModal(element.surveyId, element.elementId, element.elementType)">
+                    <h2>{{ element?.elementId }}: {{ element?.elementTitle }}</h2>
+
+                    <div *ngIf="element?.elementType == 1">
+                        <h3>Text</h3>
+                    </div>
+
+                    <div *ngIf="element?.elementType == 2">
+                        <h3>Persönliche Daten</h3>
+                    </div>
+                    <div *ngIf="element?.elementType == 3">
+                        <h3>Geschlossene Frage</h3>
+                    </div>
+                    <div *ngIf="element?.elementType == 4">
+                        <h3>Offene Frage</h3>
+                    </div>
+                    <div *ngIf="element?.elementType == 5">
+                        <h3>Bewertungstabelle</h3>
+                    </div>
+
+                    <ion-icon md="md-arrow-forward" item-right></ion-icon>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
 
 <ion-footer>

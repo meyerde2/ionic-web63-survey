@@ -9,38 +9,38 @@
     </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
-    <ion-list>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <form [formGroup]="textForm" (ngSubmit)="submitTextElement(textForm.value)">
 
-        <form [formGroup]="textForm" (ngSubmit)="submitTextElement(textForm.value)">
+                    <ion-item [hidden]="true">
+                        <ion-input type="text" name="surveyId" placeholder="" [formControl]="textForm.controls['surveyId']"></ion-input>
+                    </ion-item>
 
-            <ion-item [hidden]="true">
-                <ion-input type="text" name="surveyId" placeholder="" [formControl]="textForm.controls['surveyId']" ></ion-input>
-            </ion-item>
+                    <ion-item [hidden]="true">
+                        <ion-input type="text" name="elementId" placeholder="" [formControl]="textForm.controls['elementId']"></ion-input>
+                    </ion-item>
 
-            <ion-item [hidden]="true">
-                <ion-input type="text" name="elementId" placeholder="" [formControl]="textForm.controls['elementId']"></ion-input>
-            </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Titel des Elements</ion-label>
+                        <ion-input type="text" name="elementTitle" placeholder="" [formControl]="textForm.controls['elementTitle']" required></ion-input>
+                    </ion-item>
 
-            <ion-item>
-                <ion-label color="primary" stacked>Titel des Elements</ion-label>
-                <ion-input type="text" name="elementTitle" placeholder="" [formControl]="textForm.controls['elementTitle']" required></ion-input>
-            </ion-item>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Texteingabe</ion-label>
+                        <ion-textarea rows="5" [formControl]="textForm.controls['text']" required></ion-textarea>
+                    </ion-item>
 
-            <ion-item>
-                <ion-label color="primary" stacked>Texteingabe</ion-label>
-                <ion-textarea rows="5" [formControl]="textForm.controls['text']" required></ion-textarea>
-            </ion-item>
-           
-            <div *ngIf="elementId > 0">
-                <button ion-button type="submit" block>aktualisieren</button>
-            </div>
-            <div *ngIf="elementId == 0">
-                <button ion-button type="submit" block>erstellen</button>
-            </div>
-
-        </form>
-
-    </ion-list>
+                    <div *ngIf="elementId > 0">
+                        <button ion-button type="submit" block>aktualisieren</button>
+                    </div>
+                    <div *ngIf="elementId == 0">
+                        <button ion-button type="submit" block>erstellen</button>
+                    </div>
+                </form>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

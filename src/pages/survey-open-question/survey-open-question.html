@@ -10,43 +10,48 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list>
 
-        <form [formGroup]="openQuestionForm" (ngSubmit)="submitOpenQuestionElement(openQuestionForm.value)">
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                <form [formGroup]="openQuestionForm" (ngSubmit)="submitOpenQuestionElement(openQuestionForm.value)">
 
-            <ion-item [hidden]="true">
-                <ion-input type="text" name="surveyId" placeholder="" [formControl]="openQuestionForm.controls['surveyId']"></ion-input>
-            </ion-item>
+                    <ion-item [hidden]="true">
+                        <ion-input type="text" name="surveyId" placeholder="" [formControl]="openQuestionForm.controls['surveyId']"></ion-input>
+                    </ion-item>
 
-            <ion-item [hidden]="true">
-                <ion-input type="text" name="elementId" placeholder="" [formControl]="openQuestionForm.controls['elementId']"></ion-input>
-            </ion-item>
-
-
-            <ion-item>
-                <ion-label color="primary" stacked>Titel des Elements</ion-label>
-                <ion-input type="text" name="elementTitle" placeholder="" [formControl]="openQuestionForm.controls['elementTitle']" required></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
-                <ion-input type="text" name="situation" placeholder="" [formControl]="openQuestionForm.controls['situation']"></ion-input>
-            </ion-item>
-
-            <ion-item>
-                <ion-label color="primary" stacked>Fragetext</ion-label>
-                <ion-input type="text" name="questiontext" placeholder="" [formControl]="openQuestionForm.controls['questiontext']" required></ion-input>
-            </ion-item>
+                    <ion-item [hidden]="true">
+                        <ion-input type="text" name="elementId" placeholder="" [formControl]="openQuestionForm.controls['elementId']"></ion-input>
+                    </ion-item>
 
 
+                    <ion-item>
+                        <ion-label color="primary" stacked>Titel des Elements</ion-label>
+                        <ion-input type="text" name="elementTitle" placeholder="" [formControl]="openQuestionForm.controls['elementTitle']" required></ion-input>
+                    </ion-item>
 
-            <div *ngIf="elementId > 0">
-                <button ion-button type="submit" block>aktualisieren</button>
-            </div>
-            <div *ngIf="elementId == 0">
-                <button ion-button type="submit" block>erstellen</button>
-            </div>
-        </form>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Zwischentext / Situation</ion-label>
+                        <ion-input type="text" name="situation" placeholder="" [formControl]="openQuestionForm.controls['situation']"></ion-input>
+                    </ion-item>
 
-    </ion-list>
+                    <ion-item>
+                        <ion-label color="primary" stacked>Fragetext</ion-label>
+                        <ion-input type="text" name="questiontext" placeholder="" [formControl]="openQuestionForm.controls['questiontext']" required></ion-input>
+                    </ion-item>
+
+
+
+                    <div *ngIf="elementId > 0">
+                        <button ion-button type="submit" block>aktualisieren</button>
+                    </div>
+                    <div *ngIf="elementId == 0">
+                        <button ion-button type="submit" block>erstellen</button>
+                    </div>
+                </form>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
+   
 </ion-content>
