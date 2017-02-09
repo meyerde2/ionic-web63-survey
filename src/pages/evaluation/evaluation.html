@@ -1,33 +1,77 @@
 <ion-header>
-    <ion-navbar color="danger">
+    <ion-navbar>
         <ion-title>
-            Umfrageauswertung1
+            Umfrageauswertung
         </ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    hhjjhjhkhjk
-    {{userTestStatus}}
-    <div *ngFor="let chartE of userTestStatus">
-        {{chartE.datasets}}
-        <h1>{{chartE.elementId}}: {{chartE.elementTitle}}</h1>
 
-        <div *ngIf="chartE.type === 'bar'">
-            <canvas baseChart
-                    [datasets]="chartE.datasets"
-                    [labels]="chartE.label"
-                    [options]="options"
-                    [chartType]="chartE.type"></canvas>
-        </div>
-        <div *ngIf="chartE.type != 'bar'">
-            <canvas baseChart
-                    [datasets]="chartE.datasets"
-                    [labels]="chartE.label"
-                    [chartType]="chartE.type"></canvas>
-        </div>
+    <div *ngFor="let chartElement of evaluationCharts">
+        
+        <ion-card>
+            <ion-card-header>
+                <h1>{{chartElement.elementId}}: {{chartElement.elementTitle}}</h1>
+            </ion-card-header>
+            <ion-card-content>
+                <div *ngIf="chartElement.isPersonalAgeData === true">
+                    <h2>Altersdaten</h2>
+
+                    <table>
+                        <tr>
+                            <td>Minimalwert</td>
+                            <td>{{chartElement.personalAgeData.ageMin}}</td>
+                        </tr>
+                        <tr>
+                            <td>Maximalwert</td>
+                            <td>{{chartElement.personalAgeData.ageMax}}</td>
+                        </tr>
+                        <tr>
+                            <td>Median</td>
+                            <td>{{chartElement.personalAgeData.ageMedian}}</td>
+                        </tr>
+                        <tr>
+                            <td>Arithmetisches Mittel</td>
+                            <td>{{chartElement.personalAgeData.ageAverage}}</td>
+                        </tr>
+                        <tr>
+                            <td>Standardabweichung</td>
+                            <td>{{chartElement.personalAgeData.standardDeviation}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div *ngIf="chartElement.isText === true">
+                    <h2>Textfeldauswertung</h2>
+
+                    <ul class="list">
+                        <li *ngFor="let text of chartElement.text" class="item">
+                            {{text}}
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div *ngIf="chartElement.isPersonalAgeData === false && chartElement.isText === false &&  chartElement.type === 'bar'">
+                    <canvas baseChart
+                            [datasets]="chartElement.datasets"
+                            [labels]="chartElement.label"
+                            [options]="options"
+                            [chartType]="chartElement.type"></canvas>
+                </div>
+
+                <div *ngIf="chartElement.isPersonalAgeData === false && chartElement.isText === false && chartElement.type != 'bar'">
+                    <canvas baseChart
+                            [datasets]="chartElement.datasets"
+                            [labels]="chartElement.label"
+                            [chartType]="chartElement.type"></canvas>
+                </div>
+
+            </ion-card-content>
+        </ion-card>
+
+
 
     </div>
-
-
 </ion-content>

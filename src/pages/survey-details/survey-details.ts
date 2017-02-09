@@ -15,7 +15,9 @@ import { SurveyScoreTablePage } from '../survey-score-table/survey-score-table';
 import { SurveyTextPage } from '../survey-text/survey-text';
 
 import { SurveyOverviewPage } from '../survey-overview/survey-overview';
-import { EvaluationPage} from '../evaluation/evaluation';
+import { EvaluationPage } from '../evaluation/evaluation';
+import { SurveyRemovingPage } from '../survey-removing/survey-removing';
+
 
 import { ActionSheetController } from 'ionic-angular'
 
@@ -255,5 +257,17 @@ export class SurveyDetailsPage {
     openEvaluationPage(id: number) {
         this.navCtrl.push(EvaluationPage, { id });
     }
+
+    removingSurveyPage(id: number) {
+        console.log("removing click");
+        let modal = this.modalCtrl.create(SurveyRemovingPage, { id });
+        modal.onDidDismiss(data => {
+            console.log(data);
+            this.navCtrl.popToRoot();
+        });
+        modal.present();
+
+    }
+
 
 }

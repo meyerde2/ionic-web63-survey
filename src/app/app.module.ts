@@ -6,6 +6,8 @@ import { MyApp } from './app.component';
 import { UsersPage } from '../pages/users/users';
 import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
 import { SurveyDetailsPage } from '../pages/survey-details/survey-details';
+import { SurveyRemovingPage } from '../pages/survey-removing/survey-removing';
+
 import { UserDetailsPage } from '../pages/user-details/user-details';
 import { UserCreationPage } from '../pages/user-creation/user-creation';
 import { UserRegistrationPage } from '../pages/user-registration/user-registration';
@@ -42,7 +44,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
         SurveyClosedQuestionPage,
         SurveyOpenQuestionPage,
         SurveyScoreTablePage,
-        EvaluationPage
+        EvaluationPage,
+        SurveyRemovingPage
     ],
     imports: [
         IonicModule.forRoot(MyApp),
@@ -64,7 +67,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
         SurveyClosedQuestionPage,
         SurveyOpenQuestionPage,
         SurveyScoreTablePage,
-        EvaluationPage
+        EvaluationPage,
+        SurveyRemovingPage
     ],
     providers: [Login, SurveyUsers, Surveys]
 })

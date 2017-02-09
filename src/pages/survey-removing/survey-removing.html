@@ -1,0 +1,22 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Umfrage löschen</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card>
+        <ion-card-content>
+            <ion-list>
+                    <h1>Wollen Sie die Umfrage wirklich löschen?</h1>
+                    <button ion-button type="submit" color="danger" block (click)="submitRemoving(surveyId)">löschen</button>
+
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

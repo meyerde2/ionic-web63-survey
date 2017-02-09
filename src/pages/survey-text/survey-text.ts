@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs/Rx';
 
 import { Text } from '../../models/survey-elements/text';
 import { Surveys } from '../../providers/surveys';
@@ -13,7 +12,6 @@ import { Surveys } from '../../providers/surveys';
 })
 
 export class SurveyTextPage {
-
 
     textForm: FormGroup;
     surveyId: number;
