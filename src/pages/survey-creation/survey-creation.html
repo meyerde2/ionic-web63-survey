@@ -1,0 +1,36 @@
+﻿<ion-header>
+    <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>Neue Umfrage</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+
+        <form [formGroup]="surveyForm" (ngSubmit)="createSurvey(surveyForm.value)">
+
+            <ion-item>
+                <ion-label color="primary" stacked>Umfragenbezeichnung</ion-label>
+                <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Beschränkung per Session-ID</ion-label>
+                <ion-toggle name="sessionId" checked="false" [formControl]="surveyForm.controls['sessionId']"></ion-toggle>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Beschränkung per IP-Adresse</ion-label>
+                <ion-toggle name="ipAddress" checked="false" [formControl]="surveyForm.controls['ipAddress']"></ion-toggle>
+            </ion-item>
+
+            <button ion-button type="submit" block>erstellen</button>
+        </form>
+
+    </ion-list>
+</ion-content>

@@ -9,26 +9,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 import { Surveys } from '../../providers/surveys';
 import { SurveyDetailsPage } from '../survey-details/survey-details';
-/*
-  Generated class for the SurveyOverview page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+import { SurveyCreationPage } from '../survey-creation/survey-creation';
 export var SurveyOverviewPage = (function () {
-    function SurveyOverviewPage(navCtrl, navParams, surveysProvider) {
+    function SurveyOverviewPage(navCtrl, navParams, surveysProvider, modalCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.surveysProvider = surveysProvider;
+        this.modalCtrl = modalCtrl;
+        this.surveysProvider.getUsername();
     }
     SurveyOverviewPage.prototype.ngOnInit = function () {
         var _this = this;
-        this.surveysProvider.load().subscribe(function (surveys) {
-            _this.surveys = surveys;
-            console.log(surveys);
+        this.surveysProvider.load().subscribe(function (data) {
+            _this.surveys = data;
+            console.log(JSON.stringify(data));
         });
+    };
+    SurveyOverviewPage.prototype.ngAfterViewInit = function () {
     };
     SurveyOverviewPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad SurveyOverviewPage');
@@ -40,12 +40,21 @@ export var SurveyOverviewPage = (function () {
     SurveyOverviewPage.prototype.goToSurveyDetails = function (id) {
         this.navCtrl.push(SurveyDetailsPage, { id: id });
     };
+    SurveyOverviewPage.prototype.goToNewSurvey = function () {
+        var _this = this;
+        var modal = this.modalCtrl.create(SurveyCreationPage);
+        modal.onDidDismiss(function (data) {
+            console.log(data);
+            _this.ngOnInit();
+        });
+        modal.present();
+    };
     SurveyOverviewPage = __decorate([
         Component({
             selector: 'page-survey-overview',
             templateUrl: 'survey-overview.html'
         }), 
-        __metadata('design:paramtypes', [NavController, NavParams, Surveys])
+        __metadata('design:paramtypes', [NavController, NavParams, Surveys, ModalController])
     ], SurveyOverviewPage);
     return SurveyOverviewPage;
 }());

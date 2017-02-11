@@ -2,26 +2,22 @@ page-login {
  
   .login-content {
          /*background-image: url('../../assets/img/bg.jpg');*/
-         background-color: #C22727;
-         background-repeat: repeat;
-         background-size: cover;
+         background-color: #F2F2F2 !important;
  
-         .headlines{
-             margin-top: 30%;
-         }
+
     .headlines h1, .headlines h2{
-        color: white;
+        color: #C22727;
         font-weight: bolder;
         font-size: 2.3em;
     }
+
+    .headlines{
+        margin-top: 40px;
+        margin-left: 30px;
+    }
  
     .login-box {
-        background-color: #DEDEDE;
-        padding: 20px 20px 0px 20px;
-        margin-top: 25px;
-        border-radius: 30px !important;
-       -moz-border-radius:30px !important;
-       -webkit-border-radius:30px !important;
+
     }
  
     ion-row {
@@ -34,8 +30,8 @@ page-login {
         border-radius: 30px !important;
        -moz-border-radius:30px !important;
        -webkit-border-radius:30px !important;
-       background-color: #000000;
-       color: white;
+       background-color: #FFFFFF !important;
+
    }
  
      .submit-btn {
@@ -45,7 +41,10 @@ page-login {
      }
  
      .register-btn {
+         background-color: transparent !important;
        font-size: 0.8em;
+       color: #C22727;
+
      }
   }
  

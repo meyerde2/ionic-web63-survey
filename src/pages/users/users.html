@@ -4,7 +4,7 @@
             <ion-icon name="menu"></ion-icon>
         </button>
         <ion-title>
-            Users
+            Benutzer
         </ion-title>
     </ion-navbar>
 </ion-header>
@@ -16,18 +16,6 @@
             <ion-icon md="md-arrow-forward" item-right></ion-icon>
         </button>
     </ion-list>
-
-
-    <ion-list>
-        <button ion-item *ngFor="let user of users" (click)="goToDetails(user.login)">
-            <ion-avatar item-left>
-                <img [src]="user.avatar_url">
-            </ion-avatar>
-            <h2>{{ user.login }}</h2>
-            <ion-icon name="arrow-forward" item-right></ion-icon>
-        </button>
-    </ion-list>
-
 
     <button ion-button type="submit" block  (click)="goToNewUser()">
         neuen Benutzer erstellen

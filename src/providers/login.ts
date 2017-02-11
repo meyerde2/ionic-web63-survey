@@ -4,17 +4,16 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 
 import { SurveyUser } from '../models/surveyUser';
-/*
-  Generated class for the Login provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+import { Storage } from '@ionic/storage';
+import * as LocalForage from 'localforage'
+
+import {  GlobalVarService } from './global-var-service';
 
 export class User {
-    username: string;
-    password: string;
-    applicationServer: string;
+    public username: string;
+    public password: string;
+    public applicationServer: string;
 
     constructor(username: string, password: string, applicationServer: string) {
         this.username = username;
@@ -26,21 +25,34 @@ export class User {
 
 @Injectable()
 export class Login {
-
-    currentUser: User;
-    surveyUrl = 'http://192.168.178.40:4567';
+    
+    public currentUser: User;
+    surveyUrl = '';
     access: boolean;
+    ipAddress: string;
 
-    constructor(public http: Http) {
+
+    constructor(public http: Http, public storage: Storage, public globalVars: GlobalVarService) {
         console.log('Hello Login Provider');
     }
 
     public login(credentials) {
-        if (credentials.username === null || credentials.password === null) {
+
+        this.globalVars.loginState = true;
+
+        console.log(" - - -- GLOBAL - - -- - - -"+ this.globalVars.loginState);
+
+        console.log("credentials:_________________: " + JSON.stringify(credentials));
+
+        if (credentials.username === null || credentials.password === null || credentials.password === null) {
             return Observable.throw("Please insert credentials");
         } else {
 
             console.log("else" + credentials.username);
+
+            console.log("applicationServer:   " + credentials.applicationServer);
+
+
             return Observable.create(observer => {
                 // At this point make a request to your backend to make a real check!
                 //let access = (credentials.password === "password" && credentials.email === "batman");
@@ -50,9 +62,20 @@ export class Login {
                     'Content-Type': 'application/json',
 
                 });
-                this.currentUser = new User(credentials.username, credentials.password, credentials.appplicationServer);
 
-                
+                this.currentUser = new User(credentials.username, credentials.password, credentials.applicationServer);
+
+
+                this.globalVars.ipAddress = this.currentUser.applicationServer;
+                this.globalVars.username = this.currentUser.username;
+
+
+                console.log(credentials.username + "--------" + credentials.applicationServer + " - - -- GLOBAL - - -IP!!!!!!!!!!!!!!!!!!!!- - - -" + this.globalVars.ipAddress);
+
+                this.surveyUrl = 'http://' + this.globalVars.ipAddress;
+
+                console.log(`${this.surveyUrl}/appLogin/`);
+
                 this.http.post(`${this.surveyUrl}/appLogin/`, JSON.stringify(this.currentUser), { headers: headers })
                     .map(res => <boolean>res.json(),
                     error => {
@@ -67,6 +90,16 @@ export class Login {
 
                         if (this.access) {
                             console.log("Login erfolgreich");
+
+                            this.storage.set('username', this.currentUser.username).then(() => {
+                                console.log('username has been set');
+                                this.storage.get('username').then((username) => {
+                                    console.log('usernameLocalstorage: ' + username);
+                                });
+                            });
+
+
+                            
                         } else {
                             console.log("Login fehlgeschlagen");
 
@@ -93,17 +126,21 @@ export class Login {
         }
     }
 
+    public getIpAddress(): string {
+        console.log("this.ipAddress ___________: " + this.ipAddress);
+        return this.ipAddress;
+    }
+
     public getUserInfo(): User {
         return this.currentUser;
     }
 
     public logout() {
-        return Observable.create(observer => {
+        
             this.currentUser = null;
-            observer.next(true);
-            observer.complete();
-        });
+            this.storage.clear();
+            console.log("ausgeloggt");
+        
+
     }
-
-
 }

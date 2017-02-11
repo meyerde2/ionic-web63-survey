@@ -11,14 +11,20 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { GlobalVarService } from './global-var-service';
 export var SurveyUsers = (function () {
-    function SurveyUsers(http) {
+    function SurveyUsers(http, globalVars) {
         this.http = http;
-        this.surveyUrl = 'http://192.168.178.40:4567';
+        this.globalVars = globalVars;
+        this.surveyUrl = '';
+        this.username = '';
+        console.log('Hello Survey-User Provider');
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
     }
     // Load all survey users
     SurveyUsers.prototype.load = function () {
-        return this.http.get(this.surveyUrl + "/getAllUsers/")
+        this.username = this.globalVars.username;
+        return this.http.get(this.surveyUrl + "/getAllUsers/" + this.username + "/")
             .map(function (res) { return res.json(); });
     };
     // Get survey user by providing login(username)
@@ -52,7 +58,7 @@ export var SurveyUsers = (function () {
     };
     SurveyUsers = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Http])
+        __metadata('design:paramtypes', [Http, GlobalVarService])
     ], SurveyUsers);
     return SurveyUsers;
 }());

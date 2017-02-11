@@ -7,7 +7,7 @@ import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
 import { EvaluationPage } from '../pages/evaluation/evaluation';
 
 import { LoginPage } from '../pages/login/login';
-
+import { LogoutPage } from '../pages/logout/logout';
 
 @Component({
     templateUrl: 'app.html'
@@ -16,7 +16,7 @@ export class MyApp {
     @ViewChild(Nav) nav: Nav;
 
     // make UsersPage the root (or first) page
-    rootPage: any = SurveyOverviewPage;
+    rootPage: any = LoginPage;
     pages: Array<{ title: string, component: any }>;
 
     constructor(public platform: Platform, public menu: MenuController) {
@@ -25,7 +25,8 @@ export class MyApp {
         // set our app's pages
         this.pages = [
             { title: 'Umfrage\u00fcbersicht', component: SurveyOverviewPage },
-            { title: 'Benutzerverwaltung', component: UsersPage }
+            { title: 'Benutzerverwaltung', component: UsersPage },
+            { title: 'Logout', component: LogoutPage }
            
         ];
     }

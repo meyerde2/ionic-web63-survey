@@ -11,12 +11,8 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
-/*
-  Generated class for the Login provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
+import { Storage } from '@ionic/storage';
+import { GlobalVarService } from './global-var-service';
 export var User = (function () {
     function User(username, password, applicationServer) {
         this.username = username;
@@ -26,18 +22,24 @@ export var User = (function () {
     return User;
 }());
 export var Login = (function () {
-    function Login(http) {
+    function Login(http, storage, globalVars) {
         this.http = http;
-        this.surveyUrl = 'http://192.168.178.40:4567';
+        this.storage = storage;
+        this.globalVars = globalVars;
+        this.surveyUrl = '';
         console.log('Hello Login Provider');
     }
     Login.prototype.login = function (credentials) {
         var _this = this;
-        if (credentials.username === null || credentials.password === null) {
+        this.globalVars.loginState = true;
+        console.log(" - - -- GLOBAL - - -- - - -" + this.globalVars.loginState);
+        console.log("credentials:_________________: " + JSON.stringify(credentials));
+        if (credentials.username === null || credentials.password === null || credentials.password === null) {
             return Observable.throw("Please insert credentials");
         }
         else {
             console.log("else" + credentials.username);
+            console.log("applicationServer:   " + credentials.applicationServer);
             return Observable.create(function (observer) {
                 // At this point make a request to your backend to make a real check!
                 //let access = (credentials.password === "password" && credentials.email === "batman");
@@ -45,7 +47,12 @@ export var Login = (function () {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 });
-                _this.currentUser = new User(credentials.username, credentials.password, credentials.appplicationServer);
+                _this.currentUser = new User(credentials.username, credentials.password, credentials.applicationServer);
+                _this.globalVars.ipAddress = _this.currentUser.applicationServer;
+                _this.globalVars.username = _this.currentUser.username;
+                console.log(credentials.username + "--------" + credentials.applicationServer + " - - -- GLOBAL - - -IP!!!!!!!!!!!!!!!!!!!!- - - -" + _this.globalVars.ipAddress);
+                _this.surveyUrl = 'http://' + _this.globalVars.ipAddress;
+                console.log(_this.surveyUrl + "/appLogin/");
                 _this.http.post(_this.surveyUrl + "/appLogin/", JSON.stringify(_this.currentUser), { headers: headers })
                     .map(function (res) { return res.json(); }, function (error) {
                     console.error("Error creating user!");
@@ -56,6 +63,12 @@ export var Login = (function () {
                     console.log("access:   " + JSON.stringify(_this.access));
                     if (_this.access) {
                         console.log("Login erfolgreich");
+                        _this.storage.set('username', _this.currentUser.username).then(function () {
+                            console.log('username has been set');
+                            _this.storage.get('username').then(function (username) {
+                                console.log('usernameLocalstorage: ' + username);
+                            });
+                        });
                     }
                     else {
                         console.log("Login fehlgeschlagen");
@@ -78,20 +91,21 @@ export var Login = (function () {
             });
         }
     };
+    Login.prototype.getIpAddress = function () {
+        console.log("this.ipAddress ___________: " + this.ipAddress);
+        return this.ipAddress;
+    };
     Login.prototype.getUserInfo = function () {
         return this.currentUser;
     };
     Login.prototype.logout = function () {
-        var _this = this;
-        return Observable.create(function (observer) {
-            _this.currentUser = null;
-            observer.next(true);
-            observer.complete();
-        });
+        this.currentUser = null;
+        this.storage.clear();
+        console.log("ausgeloggt");
     };
     Login = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Http])
+        __metadata('design:paramtypes', [Http, Storage, GlobalVarService])
     ], Login);
     return Login;
 }());

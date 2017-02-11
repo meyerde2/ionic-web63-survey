@@ -12,17 +12,20 @@ import { Platform, MenuController, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import { UsersPage } from '../pages/users/users';
 import { SurveyOverviewPage } from '../pages/survey-overview/survey-overview';
+import { LoginPage } from '../pages/login/login';
+import { LogoutPage } from '../pages/logout/logout';
 export var MyApp = (function () {
     function MyApp(platform, menu) {
         this.platform = platform;
         this.menu = menu;
         // make UsersPage the root (or first) page
-        this.rootPage = SurveyOverviewPage;
+        this.rootPage = LoginPage;
         this.initializeApp();
         // set our app's pages
         this.pages = [
             { title: 'Umfrage\u00fcbersicht', component: SurveyOverviewPage },
-            { title: 'Benutzerverwaltung', component: UsersPage }
+            { title: 'Benutzerverwaltung', component: UsersPage },
+            { title: 'Logout', component: LogoutPage }
         ];
     }
     MyApp.prototype.initializeApp = function () {

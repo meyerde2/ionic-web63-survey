@@ -18,7 +18,10 @@ import { Login } from '../../providers/login';
 export class LoginPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private auth: Login, private alertCtrl: AlertController,
-        private loadingCtrl: LoadingController, public modalCtrl: ModalController) { }
+        private loadingCtrl: LoadingController, public modalCtrl: ModalController) {
+
+
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -27,6 +30,8 @@ export class LoginPage {
 
   loading: Loading;
   registerCredentials = { username: '', password: '' , applicationServer: '192.168.178.40:4567'};
+
+
 
 
   public login() {
@@ -47,6 +52,7 @@ export class LoginPage {
               this.showError(error);
           });
   }
+
 
   showLoading() {
       this.loading = this.loadingCtrl.create({

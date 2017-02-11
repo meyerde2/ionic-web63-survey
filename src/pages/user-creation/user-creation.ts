@@ -30,9 +30,9 @@ export class UserCreationPage {
             'username': '',
             'firstname': '',
             'lastname': '',
-            'role': '',
+            'role': 2,
             'password': '',
-            'confirmedPassword': ''
+            'confirmedPassword': '',
         })
 
     }

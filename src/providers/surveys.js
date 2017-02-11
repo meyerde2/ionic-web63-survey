@@ -8,46 +8,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
+import { Login } from './login';
+import { GlobalVarService } from './global-var-service';
+import { Storage } from '@ionic/storage';
 export var Surveys = (function () {
-    function Surveys(http) {
+    function Surveys(http, storage, auth, globalVars) {
         this.http = http;
-        //surveyUrl = 'http://192.168.178.40:4567';
-        this.surveyUrl = 'http://localhost:4567';
+        this.storage = storage;
+        this.auth = auth;
+        this.globalVars = globalVars;
+        this.surveyUrl = '';
         console.log('Hello Survey Provider');
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
     }
     // Load all surveys
     Surveys.prototype.load = function () {
-        var headers = new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT'
-        });
-        var options = new RequestOptions({ headers: headers });
-        return this.http.get(this.surveyUrl + "/getAllSurveyEntries/")
+        console.log("IP-ADRESSE: LOAD SURVEY ENTRIES:   " + this.globalVars.username);
+        console.log('URL::  ' + (this.surveyUrl + "/getAllSurveyEntries/" + this.globalVars.username + "/"));
+        return this.http.get(this.surveyUrl + "/getAllSurveyEntries/" + this.globalVars.username + "/")
             .map(function (res) { return res.json(); });
     };
-    // Load all surveys
-    Surveys.prototype.putSurvey = function () {
-        var username = "myusernameJunge";
-        var password = "pw";
-        var headers = new Headers({
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT'
-        });
-        var urlSearchParams = new URLSearchParams();
-        urlSearchParams.append('username', username);
-        urlSearchParams.append('hashedPassword', password);
-        var data = JSON.stringify({ username: 'CHEFFE' });
-        var body = urlSearchParams.toString();
-        console.log("putSurvey!!!!!!!!!!!!");
-        return this.http.put(this.surveyUrl + "/updateSurvey/15/", body)
-            .map(function (res) { return res.json(); });
+    Surveys.prototype.getUsername = function () {
+        return this.storage.get('username');
     };
     Surveys.prototype.updateSurveyEntry = function (survey) {
         var headers = new Headers({
@@ -183,9 +168,26 @@ export var Surveys = (function () {
         return this.http.put(this.surveyUrl + "/jsonScoreTableUpdate/", JSON.stringify(scoreTable), { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    // Get survey evaluation by id
+    Surveys.prototype.loadSurveyEvaluation = function (id) {
+        return this.http.get(this.surveyUrl + "/jsonEvaluation/" + id + "/")
+            .map(function (res) { return (res.json()); });
+    };
+    Surveys.prototype.deleteSurvey = function (id) {
+        return this.http.get(this.surveyUrl + "/jsonDeleteSurvey/" + id + "/")
+            .map(function (res) { return (res.json()); });
+    };
+    Surveys.prototype.createSurvey = function (value) {
+        var headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        });
+        return this.http.put(this.surveyUrl + "/jsonCreateSurvey/" + this.globalVars.username + "/", JSON.stringify(value), { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     Surveys = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Http])
+        __metadata('design:paramtypes', [Http, Storage, Login, GlobalVarService])
     ], Surveys);
     return Surveys;
 }());

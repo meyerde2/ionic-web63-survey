@@ -26,9 +26,9 @@ export var UserCreationPage = (function () {
             'username': '',
             'firstname': '',
             'lastname': '',
-            'role': '',
+            'role': 2,
             'password': '',
-            'confirmedPassword': ''
+            'confirmedPassword': '',
         });
     };
     UserCreationPage.prototype.createUser = function (value) {

@@ -18,9 +18,11 @@ import { SurveyPersonalDataPage } from '../survey-personal-data/survey-personal-
 import { SurveyScoreTablePage } from '../survey-score-table/survey-score-table';
 import { SurveyTextPage } from '../survey-text/survey-text';
 import { EvaluationPage } from '../evaluation/evaluation';
+import { SurveyRemovingPage } from '../survey-removing/survey-removing';
+import { GlobalVarService } from '../../providers/global-var-service';
 import { ActionSheetController } from 'ionic-angular';
 export var SurveyDetailsPage = (function () {
-    function SurveyDetailsPage(navCtrl, navParams, surveysProvider, fb, modalCtrl, actionSheetCtrl) {
+    function SurveyDetailsPage(navCtrl, navParams, surveysProvider, fb, modalCtrl, actionSheetCtrl, globalVars) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -28,7 +30,9 @@ export var SurveyDetailsPage = (function () {
         this.fb = fb;
         this.modalCtrl = modalCtrl;
         this.actionSheetCtrl = actionSheetCtrl;
+        this.globalVars = globalVars;
         this.surveyId = 0;
+        this.ipAddress = globalVars.ipAddress;
         this.surveyId = navParams.get('id');
         this.surveyForm = this.fb.group({
             'surveyId': '',
@@ -165,37 +169,47 @@ export var SurveyDetailsPage = (function () {
         modal.present();
     };
     SurveyDetailsPage.prototype.presentNewTextElement = function (survey) {
+        var _this = this;
         var modal = this.modalCtrl.create(SurveyTextPage);
         modal.onDidDismiss(function (data) {
             console.log(data);
+            _this.ngOnInit();
         });
         modal.present();
     };
     SurveyDetailsPage.prototype.presentNewPersonalData = function () {
+        var _this = this;
         var modal = this.modalCtrl.create(SurveyPersonalDataPage);
         modal.onDidDismiss(function (data) {
             console.log(data);
+            _this.ngOnInit();
         });
         modal.present();
     };
     SurveyDetailsPage.prototype.presentNewClosedQuestion = function () {
+        var _this = this;
         var modal = this.modalCtrl.create(SurveyClosedQuestionPage);
         modal.onDidDismiss(function (data) {
             console.log(data);
+            _this.ngOnInit();
         });
         modal.present();
     };
     SurveyDetailsPage.prototype.presentNewOpenQuestion = function () {
+        var _this = this;
         var modal = this.modalCtrl.create(SurveyOpenQuestionPage);
         modal.onDidDismiss(function (data) {
             console.log(data);
+            _this.ngOnInit();
         });
         modal.present();
     };
     SurveyDetailsPage.prototype.presentNewScoreTable = function () {
+        var _this = this;
         var modal = this.modalCtrl.create(SurveyScoreTablePage);
         modal.onDidDismiss(function (data) {
             console.log(data);
+            _this.ngOnInit();
         });
         modal.present();
     };
@@ -203,8 +217,18 @@ export var SurveyDetailsPage = (function () {
         console.log(JSON.stringify(value));
         this.surveysProvider.updateSurveyEntry(value);
     };
-    SurveyDetailsPage.prototype.openEvaluationPage = function () {
-        this.navCtrl.push(EvaluationPage);
+    SurveyDetailsPage.prototype.openEvaluationPage = function (id) {
+        this.navCtrl.push(EvaluationPage, { id: id });
+    };
+    SurveyDetailsPage.prototype.removingSurveyPage = function (id) {
+        var _this = this;
+        console.log("removing click");
+        var modal = this.modalCtrl.create(SurveyRemovingPage, { id: id });
+        modal.onDidDismiss(function (data) {
+            console.log(data);
+            _this.navCtrl.popToRoot();
+        });
+        modal.present();
     };
     __decorate([
         Input(), 
@@ -215,7 +239,7 @@ export var SurveyDetailsPage = (function () {
             selector: 'page-survey-details',
             templateUrl: 'survey-details.html'
         }), 
-        __metadata('design:paramtypes', [NavController, NavParams, Surveys, FormBuilder, ModalController, ActionSheetController])
+        __metadata('design:paramtypes', [NavController, NavParams, Surveys, FormBuilder, ModalController, ActionSheetController, GlobalVarService])
     ], SurveyDetailsPage);
     return SurveyDetailsPage;
 }());

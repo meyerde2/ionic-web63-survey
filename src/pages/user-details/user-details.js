@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { SurveyUsers } from '../../providers/survey-users';
 import { FormBuilder } from '@angular/forms';
+import { UsersPage } from '../users/users';
 export var UserDetailsPage = (function () {
     function UserDetailsPage(navCtrl, navParams, surveyUsers, fb) {
         var _this = this;
@@ -46,6 +47,7 @@ export var UserDetailsPage = (function () {
     UserDetailsPage.prototype.updateUser = function (value) {
         console.log(JSON.stringify(value));
         this.surveyUsers.updateUser(value);
+        this.navCtrl.push(UsersPage);
     };
     UserDetailsPage = __decorate([
         Component({

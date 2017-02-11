@@ -4,37 +4,36 @@
         <h2>Survey Mobile</h2>
     </div>
 
-    <div class="login-box">
-        <form (ngSubmit)="login()" #registerForm="ngForm">
-            <ion-row>
-                <ion-col>
-                    <ion-list inset>
 
-                        <ion-item>
-                            <ion-input type="text" placeholder="Benutzername" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
-                        </ion-item>
 
-                        <ion-item>
-                            <ion-input type="password" placeholder="Passwort" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
-                        </ion-item>
+            <div class="login-box">
+                <form (ngSubmit)="login()" #registerForm="ngForm">
+                    <ion-row>
+                        <ion-col>
+                            <ion-list inset>
 
-                        <ion-item>
-                            <ion-input type="text" placeholder="ApplicationServer-URL" name="applicationServer" [(ngModel)]="registerCredentials.applicationServer" required></ion-input>
-                        </ion-item>
+                                <ion-item>
+                                    <ion-input type="text" placeholder="Benutzername" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+                                </ion-item>
 
-                    </ion-list>
-                </ion-col>
-            </ion-row>
+                                <ion-item>
+                                    <ion-input type="password" placeholder="Passwort" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+                                </ion-item>
 
-            <ion-row>
-                <ion-col class="signup-col">
-                    <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
-                </ion-col>
-            </ion-row>
+                                <ion-item>
+                                    <ion-input type="text" placeholder="ApplicationServer-URL" name="applicationServer" [(ngModel)]="registerCredentials.applicationServer" required></ion-input>
+                                </ion-item>
 
-        </form>
-        
-        <button ion-button class="register-btn" block clear (click)="presentUserRegistrationForm()">Neuen Account erstellen</button>
+                                <ion-col class="signup-col">
+                                    <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
+                                </ion-col>
+                            </ion-list>
+                        </ion-col>
+                    </ion-row>
 
-    </div>
+                </form>
+
+                <button ion-button class="register-btn" block clear (click)="presentUserRegistrationForm()">Account erstellen</button>
+
+            </div>
 </ion-content>

@@ -10,26 +10,49 @@ import { PersonalData} from '../models/survey-elements/personalData';
 import { ScoreTable } from '../models/survey-elements/scoreTable';
 import { Text } from '../models/survey-elements/text';
 
+import { Login } from './login';
+import { User } from './login';
+import { GlobalVarService } from './global-var-service';
 
+
+import { Storage } from '@ionic/storage';
+import * as LocalForage from 'localforage'
 
 @Injectable()
 export class Surveys {
 
-    //surveyUrl = 'http://192.168.178.40:4567';
-    surveyUrl = 'http://localhost:4567';
+    surveyUrl = '';
     textElementGlobal: Text;
 
+    username: string;
 
-    constructor(public http: Http) {
+    surveys: SurveyEntry[];
+
+
+    constructor(public http: Http, public storage: Storage, public auth: Login, public globalVars: GlobalVarService) {
         console.log('Hello Survey Provider');
-    }
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
 
+    }
 
     // Load all surveys
     load(): Observable<SurveyEntry[]> {
 
-        return this.http.get(`${this.surveyUrl}/getAllSurveyEntries/`)
-            .map(res => <SurveyEntry[]>res.json());
+        console.log("IP-ADRESSE: LOAD SURVEY ENTRIES:   " + this.globalVars.username);
+
+        
+        console.log('URL::  ' + `${this.surveyUrl}/getAllSurveyEntries/${this.globalVars.username}/`);
+
+
+        return this.http.get(`${this.surveyUrl}/getAllSurveyEntries/${this.globalVars.username}/`)
+                .map(res => <SurveyEntry[]>res.json())
+
+    }
+
+    getUsername(): PromiseLike<string> {
+
+        return this.storage.get('username')
+
     }
 
     updateSurveyEntry(survey: SurveyEntry) {
@@ -245,5 +268,17 @@ export class Surveys {
     deleteSurvey(id: number) {
         return this.http.get(`${this.surveyUrl}/jsonDeleteSurvey/${id}/`)
             .map(res => (res.json()))
+    }
+
+    createSurvey(value: any) {
+
+        let headers = new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+
+        });
+
+        return this.http.put(`${this.surveyUrl}/jsonCreateSurvey/${this.globalVars.username}/`, JSON.stringify(value), { headers: headers })
+            .map(res => <any>res.json());
     }
 }

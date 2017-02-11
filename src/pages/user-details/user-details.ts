@@ -5,6 +5,7 @@ import { SurveyUser } from '../../models/surveyUser';
 import { SurveyUsers } from '../../providers/survey-users'; 
 
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { UsersPage } from '../users/users';
 
 
 @Component({
@@ -54,6 +55,6 @@ export class UserDetailsPage {
 
         console.log(JSON.stringify(value));
         this.surveyUsers.updateUser(value);
-
+        this.navCtrl.push(UsersPage);
     }
 }

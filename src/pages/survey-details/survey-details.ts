@@ -18,10 +18,9 @@ import { SurveyOverviewPage } from '../survey-overview/survey-overview';
 import { EvaluationPage } from '../evaluation/evaluation';
 import { SurveyRemovingPage } from '../survey-removing/survey-removing';
 
+import { GlobalVarService } from '../../providers/global-var-service';
 
 import { ActionSheetController } from 'ionic-angular'
-
-
 
 @Component({
   selector: 'page-survey-details',
@@ -41,9 +40,15 @@ export class SurveyDetailsPage {
 
     public surveyForm: FormGroup;
 
+    public ipAddress: string;
+
     constructor(public navCtrl: NavController, private navParams: NavParams, private surveysProvider: Surveys,
-        private fb: FormBuilder, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController) {
-        
+        private fb: FormBuilder, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public globalVars: GlobalVarService) {
+
+
+        this.ipAddress = globalVars.ipAddress;
+
+
         this.surveyId = navParams.get('id');
 
         this.surveyForm = this.fb.group({
@@ -204,6 +209,8 @@ export class SurveyDetailsPage {
         let modal = this.modalCtrl.create(SurveyTextPage);
         modal.onDidDismiss(data => {
             console.log(data);
+            this.ngOnInit();
+
         });
 
         modal.present();
@@ -214,6 +221,8 @@ export class SurveyDetailsPage {
         let modal = this.modalCtrl.create(SurveyPersonalDataPage);
         modal.onDidDismiss(data => {
             console.log(data);
+            this.ngOnInit();
+
         });
 
         modal.present();
@@ -224,6 +233,8 @@ export class SurveyDetailsPage {
         let modal = this.modalCtrl.create(SurveyClosedQuestionPage);
         modal.onDidDismiss(data => {
             console.log(data);
+            this.ngOnInit();
+
         });
 
         modal.present();
@@ -234,6 +245,8 @@ export class SurveyDetailsPage {
         let modal = this.modalCtrl.create(SurveyOpenQuestionPage);
         modal.onDidDismiss(data => {
             console.log(data);
+            this.ngOnInit();
+
         });
 
         modal.present();
@@ -244,6 +257,8 @@ export class SurveyDetailsPage {
         let modal = this.modalCtrl.create(SurveyScoreTablePage);
         modal.onDidDismiss(data => {
             console.log(data);
+            this.ngOnInit();
+
         });
 
         modal.present();

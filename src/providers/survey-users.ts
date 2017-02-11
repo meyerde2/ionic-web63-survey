@@ -5,15 +5,23 @@ import 'rxjs/add/operator/map';
 
 import { SurveyUser } from '../models/surveyUser';
 
+import { GlobalVarService } from './global-var-service';
+
+
+
 @Injectable()
 export class SurveyUsers {
-    surveyUrl = 'http://192.168.178.40:4567';
-
-    constructor(public http: Http) { }
+    surveyUrl = '';
+    username = '';
+    constructor(public http: Http, public globalVars: GlobalVarService) {
+        console.log('Hello Survey-User Provider');
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
+    }
 
     // Load all survey users
     load(): Observable<SurveyUser[]> {
-        return this.http.get(`${this.surveyUrl}/getAllUsers/`)
+        this.username = this.globalVars.username;
+        return this.http.get(`${this.surveyUrl}/getAllUsers/${this.username}/`)
             .map(res => <SurveyUser[]>res.json());
     }
 
