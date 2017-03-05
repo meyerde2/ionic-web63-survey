@@ -15,5 +15,6 @@ export class GlobalVarService {
     public loginState: boolean = false;
     public ipAddress: string = "no Application Server";
     public username: string = "no Username";
+    public userRole: number = 2;
 
 }

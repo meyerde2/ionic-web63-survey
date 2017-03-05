@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Rx';
 import { Login } from './login';
 import { GlobalVarService } from './global-var-service';
 import { Storage } from '@ionic/storage';
@@ -43,15 +42,13 @@ export var Surveys = (function () {
         console.log("URL: " + (this.surveyUrl + "/updateSurvey/" + survey.surveyId + "/"));
         console.log("survey.surveyId:  " + survey.surveyId);
         if (survey.surveyId != undefined && survey.surveyId > 0) {
-            this.http.put(this.surveyUrl + "/updateSurvey/" + survey.surveyId + "/", JSON.stringify(survey), { headers: headers })
-                .map(function (res) { return res.json(); }, function (error) {
-                console.error("error updating survey!");
-                return Observable.throw(error);
-            }).subscribe();
             console.log("URL: " + (this.surveyUrl + "/updateSurvey/" + survey.surveyId + "/"));
+            return this.http.put(this.surveyUrl + "/updateSurvey/" + survey.surveyId + "/", JSON.stringify(survey), { headers: headers })
+                .map(function (res) { return res.json(); });
         }
         else {
             console.log("Update not executed");
+            return undefined;
         }
     };
     // Get survey by id

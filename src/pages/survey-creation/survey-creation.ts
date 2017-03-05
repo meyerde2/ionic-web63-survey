@@ -12,7 +12,6 @@ export class SurveyCreationPage {
 
     surveyForm: FormGroup;
 
-
     constructor(public navCtrl: NavController, public navParams: NavParams, private surveys: Surveys, private fb: FormBuilder, private viewCtrl: ViewController) {}
 
   ionViewDidLoad() {

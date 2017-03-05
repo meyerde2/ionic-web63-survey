@@ -14,6 +14,7 @@
   <allow-intent href="geo:*" />
   <platform name="android">
     <allow-intent href="market:*" />
+
   </platform>
   <platform name="ios">
     <allow-intent href="itms:*" />
@@ -22,7 +23,7 @@
   <preference name="webviewbounce" value="false" />
   <preference name="UIWebViewBounce" value="false" />
   <preference name="DisallowOverscroll" value="true" />
-  <preference name="android-minSdkVersion" value="17" />
+  <preference name="android-minSdkVersion" value="16" />
   <preference name="BackupWebStorage" value="none" />
   <preference name="SplashScreen" value="screen" />
   <preference name="SplashScreenDelay" value="10000" />
@@ -33,7 +34,11 @@
   <preference name="SplashMaintainAspectRatio" value="true" />
   <preference name="FadeSplashScreenDuration" value="300" />
   <preference name="SplashShowOnlyFirstTime" value="false" />
-  <preference name="LoadUrlTimeoutValue" value="70000"/>
+  <preference name="LoadUrlTimeoutValue" value="70000" />
+
+  <preference name="xwalkMode" value="lite" />
+
+
   
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar" />
@@ -44,6 +49,7 @@
   <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
   <plugin name="cordova-plugin-device" spec="1.1.4" />
   <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
-  <preference name="android-targetSdkVersion" value="17" />
+  <preference name="android-targetSdkVersion" value="16" />
+  <plugin name="cordova-sqlite-storage" version="2.0.2" />
   <plugin name="cordova-plugin-crosswalk-webview" version="2.1.0" />
 </widget>

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+﻿import { Component } from '@angular/core';
+import { NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 
 import { SurveyUser } from '../../models/surveyUser';
 import { SurveyUsers } from '../../providers/survey-users';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'page-user-creation',
@@ -16,7 +16,7 @@ export class UserCreationPage {
     username: string;
     userForm: FormGroup;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private surveyUsers: SurveyUsers, private fb: FormBuilder) {}
+    constructor(public navCtrl: NavController, public navParams: NavParams, private surveyUsers: SurveyUsers, private fb: FormBuilder, private viewCtrl: ViewController, private toastCtrl: ToastController) { }
 
     ionViewDidLoad() {
 
@@ -31,8 +31,17 @@ export class UserCreationPage {
             'firstname': '',
             'lastname': '',
             'role': 2,
-            'password': '',
-            'confirmedPassword': '',
+            'password': ['', [
+                Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(20)
+            ]],
+            'confirmedPassword': ['', [
+                Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(20)
+            ]]
+
         })
 
     }
@@ -40,7 +49,29 @@ export class UserCreationPage {
     createUser(value: any) {
 
         console.log(JSON.stringify(value));
-        this.surveyUsers.createUser(value);
+        this.surveyUsers.createUser(value).subscribe(data => {
+            if (data) {
+                this.presentToast("Benutzer erfolgreich erstellt");
+                this.viewCtrl.dismiss();
+            } else {
+                this.presentToast("Benutzername existiert bereits oder Passwörter ungleich");
+                this.viewCtrl.dismiss();
+            }
 
+        },
+            error => {
+                this.presentToast("Fehler: Benutzername existiert bereits oder Passwörter ungleich");
+                this.viewCtrl.dismiss();
+            });
     }
+
+    presentToast(message: string) {
+        let toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
+    }
+    
 }

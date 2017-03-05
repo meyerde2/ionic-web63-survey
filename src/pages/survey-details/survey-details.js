@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder } from '@angular/forms';
 import { Surveys } from '../../providers/surveys';
 import { ModalController } from 'ionic-angular';
@@ -22,7 +22,7 @@ import { SurveyRemovingPage } from '../survey-removing/survey-removing';
 import { GlobalVarService } from '../../providers/global-var-service';
 import { ActionSheetController } from 'ionic-angular';
 export var SurveyDetailsPage = (function () {
-    function SurveyDetailsPage(navCtrl, navParams, surveysProvider, fb, modalCtrl, actionSheetCtrl, globalVars) {
+    function SurveyDetailsPage(navCtrl, navParams, surveysProvider, fb, modalCtrl, actionSheetCtrl, globalVars, toastCtrl) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -31,6 +31,7 @@ export var SurveyDetailsPage = (function () {
         this.modalCtrl = modalCtrl;
         this.actionSheetCtrl = actionSheetCtrl;
         this.globalVars = globalVars;
+        this.toastCtrl = toastCtrl;
         this.surveyId = 0;
         this.ipAddress = globalVars.ipAddress;
         this.surveyId = navParams.get('id');
@@ -74,10 +75,26 @@ export var SurveyDetailsPage = (function () {
     SurveyDetailsPage.prototype.ionViewWillLeave = function () {
         //  this.navCtrl.push(SurveyOverviewPage);
     };
-    SurveyDetailsPage.prototype.updateSurvey = function (value) {
-        console.log('hello world');
-        console.log(JSON.stringify(value));
-        this.surveysProvider.updateSurveyEntry(value);
+    SurveyDetailsPage.prototype.updateSurvey = function (surveyEntry) {
+        var _this = this;
+        if (surveyEntry.surveyId > 0) {
+            this.surveysProvider.updateSurveyEntry(surveyEntry).subscribe(function (result) {
+                if (result != undefined) {
+                    _this.presentToast("Update erfolgreich durchgeführt");
+                }
+                else {
+                    _this.presentToast("Update nicht erfolgreich");
+                }
+            });
+        }
+    };
+    SurveyDetailsPage.prototype.presentToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.present();
     };
     SurveyDetailsPage.prototype.presentActionSheet = function () {
         var _this = this;
@@ -239,7 +256,7 @@ export var SurveyDetailsPage = (function () {
             selector: 'page-survey-details',
             templateUrl: 'survey-details.html'
         }), 
-        __metadata('design:paramtypes', [NavController, NavParams, Surveys, FormBuilder, ModalController, ActionSheetController, GlobalVarService])
+        __metadata('design:paramtypes', [NavController, NavParams, Surveys, FormBuilder, ModalController, ActionSheetController, GlobalVarService, ToastController])
     ], SurveyDetailsPage);
     return SurveyDetailsPage;
 }());

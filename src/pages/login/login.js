@@ -21,7 +21,7 @@ export var LoginPage = (function () {
         this.alertCtrl = alertCtrl;
         this.loadingCtrl = loadingCtrl;
         this.modalCtrl = modalCtrl;
-        this.registerCredentials = { username: '', password: '', applicationServer: '192.168.178.40:4567' };
+        this.registerCredentials = { username: '', password: '', applicationServer: '192.168.178.40:8080' };
     }
     LoginPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad LoginPage');
@@ -38,7 +38,7 @@ export var LoginPage = (function () {
                 });
             }
             else {
-                _this.showError("Access Denied");
+                _this.showError("Zugriff verweigert - Benutzername oder Passwort falsch");
             }
         }, function (error) {
             _this.showError(error);

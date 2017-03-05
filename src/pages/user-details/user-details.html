@@ -1,5 +1,10 @@
 ﻿<ion-header>
     <ion-navbar>
+        <ion-buttons left>
+            <button ion-button navPop icon-only>
+                <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Benutzerinformationen</ion-title>
     </ion-navbar>
 </ion-header>
@@ -26,26 +31,27 @@
           
             <ion-item>
                 <ion-label color="primary" stacked>Neues Passwort</ion-label>
-                <ion-input type="password" name="password" placeholder="" [formControl]="userForm.controls['password']" ></ion-input>
+                <ion-input type="password" name="password" placeholder="Optionale Eingabe" [formControl]="userForm.controls['password']" ></ion-input>
             </ion-item>
 
             <ion-item>
                 <ion-label color="primary" stacked>Neues Passwort bestätigen</ion-label>
-                <ion-input type="password" name="confirmedPassword" placeholder="" [formControl]="userForm.controls['confirmedPassword']" ></ion-input>
+                <ion-input type="password" name="confirmedPassword" placeholder="Optionale Eingabe" [formControl]="userForm.controls['confirmedPassword']" ></ion-input>
             </ion-item>
 
-            <ion-list radio-group [formControl]="userForm.controls['role']" required>
-                <ion-item>
-                    <ion-label>Admin</ion-label>
-                    <ion-radio value="1"></ion-radio>
-                </ion-item>
-                <ion-item>
-                    <ion-label>Ersteller</ion-label>
-                    <ion-radio value="2"></ion-radio>
-                </ion-item>
-            </ion-list>
-
-            <button ion-button type="submit" block>aktualisieren</button>
+            <div *ngIf="userRole == 1">
+                <ion-list radio-group [formControl]="userForm.controls['role']" required>
+                    <ion-item>
+                        <ion-label>Admin</ion-label>
+                        <ion-radio value="1"></ion-radio>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Ersteller</ion-label>
+                        <ion-radio value="2"></ion-radio>
+                    </ion-item>
+                </ion-list>
+            </div>
+                <button ion-button type="submit" block>aktualisieren</button>
         </form>
 
     </ion-list>

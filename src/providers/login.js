@@ -13,6 +13,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 import { GlobalVarService } from './global-var-service';
+import { SurveyUsers } from './survey-users';
 export var User = (function () {
     function User(username, password, applicationServer) {
         this.username = username;
@@ -22,10 +23,11 @@ export var User = (function () {
     return User;
 }());
 export var Login = (function () {
-    function Login(http, storage, globalVars) {
+    function Login(http, storage, globalVars, surveyUsers) {
         this.http = http;
         this.storage = storage;
         this.globalVars = globalVars;
+        this.surveyUsers = surveyUsers;
         this.surveyUrl = '';
         console.log('Hello Login Provider');
     }
@@ -69,6 +71,10 @@ export var Login = (function () {
                                 console.log('usernameLocalstorage: ' + username);
                             });
                         });
+                        _this.surveyUsers.loadDetails(_this.globalVars.username).subscribe(function (data) {
+                            _this.globalVars.userRole = data.role;
+                            console.log("this.globalVars.userRole::: " + _this.globalVars.userRole);
+                        });
                     }
                     else {
                         console.log("Login fehlgeschlagen");
@@ -105,7 +111,7 @@ export var Login = (function () {
     };
     Login = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Http, Storage, GlobalVarService])
+        __metadata('design:paramtypes', [Http, Storage, GlobalVarService, SurveyUsers])
     ], Login);
     return Login;
 }());

@@ -12,28 +12,48 @@ import { NavController } from 'ionic-angular';
 import { SurveyUsers } from '../../providers/survey-users';
 import { UserDetailsPage } from '../user-details/user-details';
 import { UserCreationPage } from '../user-creation/user-creation';
+import { ModalController } from 'ionic-angular';
+import { GlobalVarService } from '../../providers/global-var-service';
 export var UsersPage = (function () {
-    function UsersPage(navCtrl, surveyUsersProvider) {
-        var _this = this;
+    function UsersPage(navCtrl, surveyUsersProvider, modalCtrl, gloabalVarService) {
         this.navCtrl = navCtrl;
         this.surveyUsersProvider = surveyUsersProvider;
-        surveyUsersProvider.load().subscribe(function (surveryUsers) {
+        this.modalCtrl = modalCtrl;
+        this.gloabalVarService = gloabalVarService;
+        this.userRole = this.gloabalVarService.userRole;
+    }
+    UsersPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.surveyUsersProvider.load().subscribe(function (surveryUsers) {
             _this.surveyUsers = surveryUsers;
             console.log(surveryUsers);
         });
-    }
+    };
     UsersPage.prototype.goToUserDetails = function (username) {
-        this.navCtrl.push(UserDetailsPage, { username: username });
+        var _this = this;
+        var modal = this.modalCtrl.create(UserDetailsPage, { username: username });
+        modal.onDidDismiss(function (data) {
+            console.log(data);
+            console.log("goToUserDismiss");
+            _this.ngOnInit();
+        });
+        modal.present();
     };
     UsersPage.prototype.goToNewUser = function () {
-        this.navCtrl.push(UserCreationPage);
+        var _this = this;
+        var modal = this.modalCtrl.create(UserCreationPage);
+        modal.onDidDismiss(function (data) {
+            console.log(data);
+            _this.ngOnInit();
+        });
+        modal.present();
     };
     UsersPage = __decorate([
         Component({
             selector: 'page-users',
             templateUrl: 'users.html'
         }), 
-        __metadata('design:paramtypes', [NavController, SurveyUsers])
+        __metadata('design:paramtypes', [NavController, SurveyUsers, ModalController, GlobalVarService])
     ], UsersPage);
     return UsersPage;
 }());

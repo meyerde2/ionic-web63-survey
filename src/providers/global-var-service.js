@@ -20,6 +20,7 @@ export var GlobalVarService = (function () {
         this.loginState = false;
         this.ipAddress = "no Application Server";
         this.username = "no Username";
+        this.userRole = 2;
     }
     GlobalVarService = __decorate([
         Injectable(), 

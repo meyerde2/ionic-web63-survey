@@ -8,7 +8,8 @@ import { SurveyUser } from '../models/surveyUser';
 import { Storage } from '@ionic/storage';
 import * as LocalForage from 'localforage'
 
-import {  GlobalVarService } from './global-var-service';
+import { GlobalVarService } from './global-var-service';
+import { SurveyUsers } from './survey-users';
 
 export class User {
     public username: string;
@@ -22,7 +23,6 @@ export class User {
     }
 }
 
-
 @Injectable()
 export class Login {
     
@@ -32,7 +32,7 @@ export class Login {
     ipAddress: string;
 
 
-    constructor(public http: Http, public storage: Storage, public globalVars: GlobalVarService) {
+    constructor(public http: Http, public storage: Storage, public globalVars: GlobalVarService, public surveyUsers: SurveyUsers) {
         console.log('Hello Login Provider');
     }
 
@@ -85,7 +85,6 @@ export class Login {
                         console.log("Result-Data:  " + JSON.stringify(data));
                         this.access = data;
 
-
                         console.log("access:   " + JSON.stringify(this.access));
 
                         if (this.access) {
@@ -98,7 +97,11 @@ export class Login {
                                 });
                             });
 
-
+                            this.surveyUsers.loadDetails(this.globalVars.username).subscribe(data => {
+                                this.globalVars.userRole = data.role;
+                                console.log("this.globalVars.userRole::: " + this.globalVars.userRole);
+                            });
+                            
                             
                         } else {
                             console.log("Login fehlgeschlagen");
@@ -136,11 +139,9 @@ export class Login {
     }
 
     public logout() {
-        
-            this.currentUser = null;
-            this.storage.clear();
-            console.log("ausgeloggt");
-        
 
+        this.currentUser = null;
+        this.storage.clear();
+        console.log("ausgeloggt");
     }
 }

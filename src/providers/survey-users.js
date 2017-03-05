@@ -24,11 +24,13 @@ export var SurveyUsers = (function () {
     // Load all survey users
     SurveyUsers.prototype.load = function () {
         this.username = this.globalVars.username;
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
         return this.http.get(this.surveyUrl + "/getAllUsers/" + this.username + "/")
             .map(function (res) { return res.json(); });
     };
     // Get survey user by providing login(username)
     SurveyUsers.prototype.loadDetails = function (username) {
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
         return this.http.get(this.surveyUrl + "/getUserByUsername/" + username + "/")
             .map(function (res) { return (res.json()); });
     };
@@ -38,11 +40,12 @@ export var SurveyUsers = (function () {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         });
-        this.http.post(this.surveyUrl + "/createUser/", JSON.stringify(user), { headers: headers })
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
+        return this.http.post(this.surveyUrl + "/createUser/", JSON.stringify(user), { headers: headers })
             .map(function (res) { return res.json(); }, function (error) {
             console.error("Error creating user!");
             return Observable.throw(error);
-        }).subscribe();
+        });
     };
     // update user by username
     SurveyUsers.prototype.updateUser = function (user) {
@@ -50,6 +53,7 @@ export var SurveyUsers = (function () {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         });
+        this.surveyUrl = 'http://' + this.globalVars.ipAddress;
         this.http.put(this.surveyUrl + "/updateUser/" + user.username + "/", JSON.stringify(user), { headers: headers })
             .map(function (res) { return res.json(); }, function (error) {
             console.error("Error updating user!");

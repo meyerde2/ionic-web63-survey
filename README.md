@@ -1,7 +1,7 @@
-Ionic 2 App Base
+Ionic 2 Umfrageverwaltungsapp für das Modul WEB63
 =====================
 
-This is the base template for Ionic 2 starter apps.
+Die einzusetzende REST-API geht durch das Projekt WEB62 hervor.
 
 ## Using this project
 

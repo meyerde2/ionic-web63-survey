@@ -41,7 +41,7 @@
 
                     <ion-item>
                         <ion-label floating>Umfragenbezeichnung</ion-label>
-                        <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required (change)="surveyChange(surveyForm.value)"></ion-input>
+                        <ion-input type="text" name="surveyTitle" placeholder="" [formControl]="surveyForm.controls['surveyTitle']" required (change)="updateSurvey(surveyForm.value)"></ion-input>
                     </ion-item>
 
                     <ion-item [hidden]="true">
@@ -51,17 +51,17 @@
 
                     <ion-item>
                         <ion-label>Beschränkung per Session-ID</ion-label>
-                        <ion-toggle name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
+                        <ion-toggle name="sessionId" checked="{{ s?.sessionId }}" [formControl]="surveyForm.controls['sessionId']" (ionChange)="updateSurvey(surveyForm.value)"></ion-toggle>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Beschränkung per IP-Adresse</ion-label>
-                        <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
+                        <ion-toggle name="ipAddress" checked="{{ s?.ipAddress }}" [formControl]="surveyForm.controls['ipAddress']" (ionChange)="updateSurvey(surveyForm.value)"></ion-toggle>
                     </ion-item>
 
                     <ion-item>
                         <ion-label>Veröffentlichen</ion-label>
-                        <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']" (ionChange)="surveyChange(surveyForm.value)"></ion-toggle>
+                        <ion-toggle name="published" checked="{{ s?.published }}" [formControl]="surveyForm.controls['published']" (ionChange)="updateSurvey(surveyForm.value)"></ion-toggle>
                     </ion-item>
 
                     <!--<button ion-button type="submit" block>aktualisieren</button>-->

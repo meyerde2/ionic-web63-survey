@@ -8,15 +8,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { SurveyUsers } from '../../providers/survey-users';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { GlobalVarService } from '../../providers/global-var-service';
 export var UserRegistrationPage = (function () {
-    function UserRegistrationPage(navCtrl, navParams, surveyUsers, fb) {
+    function UserRegistrationPage(navCtrl, navParams, surveyUsers, fb, gloabalVarService, viewCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.surveyUsers = surveyUsers;
         this.fb = fb;
+        this.gloabalVarService = gloabalVarService;
+        this.viewCtrl = viewCtrl;
+        this.userRole = this.gloabalVarService.userRole;
     }
     UserRegistrationPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad UserRegistrationPage');
@@ -24,20 +28,29 @@ export var UserRegistrationPage = (function () {
     UserRegistrationPage.prototype.ngOnInit = function () {
         this.registrationForm = this.fb.group({
             'username': '',
-            'password': '',
-            'passwordConfirmed': ''
+            'password': ['', [
+                    Validators.required,
+                    Validators.minLength(6),
+                    Validators.maxLength(20)
+                ]],
+            'passwordConfirmed': ['', [
+                    Validators.required,
+                    Validators.minLength(6),
+                    Validators.maxLength(20)
+                ]]
         });
     };
     UserRegistrationPage.prototype.createUser = function (value) {
         console.log(JSON.stringify(value));
-        this.surveyUsers.createUser(value);
+        this.surveyUsers.createUser(value).subscribe();
+        this.viewCtrl.dismiss();
     };
     UserRegistrationPage = __decorate([
         Component({
             selector: 'page-user-registration',
             templateUrl: 'user-registration.html'
         }), 
-        __metadata('design:paramtypes', [NavController, NavParams, SurveyUsers, FormBuilder])
+        __metadata('design:paramtypes', [NavController, NavParams, SurveyUsers, FormBuilder, GlobalVarService, ViewController])
     ], UserRegistrationPage);
     return UserRegistrationPage;
 }());

@@ -55,30 +55,24 @@ export class Surveys {
 
     }
 
-    updateSurveyEntry(survey: SurveyEntry) {
-
+    updateSurveyEntry(survey: SurveyEntry): Observable<SurveyEntry> {
 
         let headers = new Headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-
         });
 
         console.log("survey provider: " + JSON.stringify(survey));
         console.log("URL: " + `${this.surveyUrl}/updateSurvey/${survey.surveyId}/`);
-
         console.log("survey.surveyId:  " + survey.surveyId);
 
         if (survey.surveyId != undefined && survey.surveyId > 0) {
-            this.http.put(`${this.surveyUrl}/updateSurvey/${survey.surveyId}/`, JSON.stringify(survey), { headers: headers })
-                .map(res => <SurveyEntry[]>res.json(),
-                error => {
-                    console.error("error updating survey!");
-                    return Observable.throw(error);
-                }).subscribe();
             console.log("URL: " + `${this.surveyUrl}/updateSurvey/${survey.surveyId}/`);
+            return this.http.put(`${this.surveyUrl}/updateSurvey/${survey.surveyId}/`, JSON.stringify(survey), { headers: headers })
+                .map(res => <SurveyEntry>res.json())
         } else {
             console.log("Update not executed");
+            return undefined;
         }
 
     }

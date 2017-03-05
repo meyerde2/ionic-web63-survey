@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
+import {
+    NavController, NavParams,
+    ToastController, ViewController
+} from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ClosedQuestion } from '../../models/survey-elements/closedQuestion';

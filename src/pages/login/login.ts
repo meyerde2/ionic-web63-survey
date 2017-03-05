@@ -2,14 +2,10 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 
-
-
 import { SurveyOverviewPage } from '../survey-overview/survey-overview';
 import { UserRegistrationPage} from '../user-registration/user-registration';
 
 import { Login } from '../../providers/login';
-
-
 
 @Component({
   selector: 'page-login',
@@ -18,10 +14,7 @@ import { Login } from '../../providers/login';
 export class LoginPage {
 
     constructor(public navCtrl: NavController, public navParams: NavParams, private auth: Login, private alertCtrl: AlertController,
-        private loadingCtrl: LoadingController, public modalCtrl: ModalController) {
-
-
-    }
+        private loadingCtrl: LoadingController, public modalCtrl: ModalController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -29,11 +22,8 @@ export class LoginPage {
     
 
   loading: Loading;
-  registerCredentials = { username: '', password: '' , applicationServer: '192.168.178.40:4567'};
-
-
-
-
+  registerCredentials = { username: '', password: '' , applicationServer: '192.168.178.40:8080'};
+    
   public login() {
       this.showLoading()
       console.log('Login' + this.registerCredentials.username + "   " + this.registerCredentials.password + "   " + this.registerCredentials.applicationServer);
@@ -45,7 +35,7 @@ export class LoginPage {
                   this.navCtrl.setRoot(SurveyOverviewPage)
               });
           } else {
-              this.showError("Access Denied");
+              this.showError("Zugriff verweigert - Benutzername oder Passwort falsch");
           }
       },
           error => {

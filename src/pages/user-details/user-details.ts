@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { SurveyUser } from '../../models/surveyUser';
 
-import { SurveyUsers } from '../../providers/survey-users'; 
+import { SurveyUsers } from '../../providers/survey-users';
+import { GlobalVarService } from '../../providers/global-var-service'; 
 
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UsersPage } from '../users/users';
@@ -15,10 +16,11 @@ import { UsersPage } from '../users/users';
 export class UserDetailsPage {
     surveyUser: SurveyUser;
     username: string;
+    userRole: number;
 
     userForm: FormGroup;
 
-    constructor(public navCtrl: NavController, private navParams: NavParams, private surveyUsers: SurveyUsers, private fb: FormBuilder) {
+    constructor(public navCtrl: NavController, private navParams: NavParams, private surveyUsers: SurveyUsers, private fb: FormBuilder, private viewCtrl: ViewController, private gloabalVarService: GlobalVarService) {
         this.username = navParams.get('username');
         surveyUsers.loadDetails(this.username).subscribe(surveyUser => {
             this.surveyUser = surveyUser;
@@ -26,7 +28,6 @@ export class UserDetailsPage {
         })
     }
 
-   
     ngOnInit() {
 
         this.userForm = this.fb.group({
@@ -42,6 +43,7 @@ export class UserDetailsPage {
         this.surveyUsers.loadDetails(this.username).subscribe(data => {
 
             this.surveyUser = data;
+            this.userRole = this.gloabalVarService.userRole;
             this.userForm.controls['username'].setValue(this.surveyUser.username);
             this.userForm.controls['firstname'].setValue(this.surveyUser.firstname);
             this.userForm.controls['lastname'].setValue(this.surveyUser.lastname);
@@ -50,11 +52,17 @@ export class UserDetailsPage {
         });
 
     }
-    
+
+    ionViewWillEnter() {
+        console.log("this function will be called every time you enter the view");
+        this.ngOnInit();
+    }
+
     updateUser(value: any) {
 
         console.log(JSON.stringify(value));
         this.surveyUsers.updateUser(value);
-        this.navCtrl.push(UsersPage);
+        this.viewCtrl.dismiss();
+
     }
 }

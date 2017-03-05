@@ -1,5 +1,5 @@
 ﻿import { Component, Input } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { Surveys } from '../../providers/surveys';
@@ -43,11 +43,10 @@ export class SurveyDetailsPage {
     public ipAddress: string;
 
     constructor(public navCtrl: NavController, private navParams: NavParams, private surveysProvider: Surveys,
-        private fb: FormBuilder, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController, public globalVars: GlobalVarService) {
-
+        private fb: FormBuilder, public modalCtrl: ModalController, public actionSheetCtrl: ActionSheetController,
+        public globalVars: GlobalVarService, private toastCtrl: ToastController) {
 
         this.ipAddress = globalVars.ipAddress;
-
 
         this.surveyId = navParams.get('id');
 
@@ -104,14 +103,28 @@ export class SurveyDetailsPage {
   }
 
 
-  updateSurvey(value: any) {
-      console.log('hello world');
-      console.log(JSON.stringify(value));
+  updateSurvey(surveyEntry: SurveyEntry) {
 
-      this.surveysProvider.updateSurveyEntry(value);
+      if (surveyEntry.surveyId > 0) {
+          this.surveysProvider.updateSurveyEntry(surveyEntry).subscribe(result => {
+              if (result != undefined) {
+                  this.presentToast("Update erfolgreich durchgeführt");
+              } else {
+                  this.presentToast("Update nicht erfolgreich");
+              }
+          });
+      }
 
   }
 
+  presentToast(message: string) {
+      let toast = this.toastCtrl.create({
+          message: message,
+          duration: 3000,
+          position: 'bottom'
+      });
+      toast.present();
+  }
 
   presentActionSheet() {
       let actionSheet = this.actionSheetCtrl.create({
