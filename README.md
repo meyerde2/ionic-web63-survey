@@ -2,6 +2,8 @@ Ionic 2 Umfrageverwaltungsapp für das Modul WEB63
 =====================
 
 Die einzusetzende REST-API geht durch das Projekt WEB62 hervor.
+Da es sich um eine hybride App handelt, ist diese prinzipiell auf Android, iOS und Windows 10 Mobile lauffähig.
+Darüber hinaus noch im Webbrowser.
 
 ## Using this project
 
